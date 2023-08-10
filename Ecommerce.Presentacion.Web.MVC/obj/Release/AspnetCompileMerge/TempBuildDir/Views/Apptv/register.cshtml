@@ -1,0 +1,67 @@
+﻿@model Domain.Entities.RegisterUsuarioTienda
+@{
+    ViewBag.Title = "Nuevo Usuario";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+}
+<div class="htc__login__register bg__white ptb--50" style="background: rgba(0, 0, 0, 0) url(/Content/img/bg-white.png) no-repeat scroll center center / cover ;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <ul class="login__register__menu" role="tablist">
+                    <li role="presentation" class="login"><a href="@Url.Action("login", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })">Login</a></li>
+                    <li role="presentation" class="register active"><a class="active" href="#login" role="tab" data-toggle="tab">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="htc__login__register__wrap">
+                    @using (Html.BeginForm("RegisterUser", "Apptv", new
+                    {
+                        name = Request.QueryString["name"],
+                        token = Request.QueryString["token"]
+                    }, FormMethod.Post,
+                    htmlAttributes: new { autocomplete = "off", @class = "login" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Warning!</strong> @ViewBag.Message
+                            </div>
+                        }
+                        <fieldset>
+
+                            <input type="text" placeholder="Email*" name="V_EMAIL">
+                            @Html.ValidationMessageFor(model => model.V_EMAIL)
+                            <input type="password" placeholder="Password*" name="Password">
+                            @Html.ValidationMessageFor(model => model.Password)
+                            <input type="password" placeholder="Confirm Password*" name="ConfirmPassword">
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+
+                            <div class="htc__login__btn mt--30">
+                                <button type="submit" class="link">Registrarme</button>
+                            </div>
+
+
+
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+</div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#header').addClass('header--3 bg__white');
+                    $('.slider__container').remove();
+                });
+            </script>
+        }

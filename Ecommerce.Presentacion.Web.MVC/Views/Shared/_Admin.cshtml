@@ -1,0 +1,317 @@
+﻿@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="panel de administracion, sistemas adrianzen admin, admin, sisadri eirl">
+    <meta name="author" content="sistemas adrianzen eirl, sisadri">
+
+
+    <title>Panel de Administración - Tienda Virtual</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/admin/all.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Page level plugin CSS-->
+    <link href="~/Content/admin/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/Content/admin/sb-admin.css" rel="stylesheet" />
+    <!-- bootstrap-dialog-->
+    <link href="~/Content/bootstrap-dialog.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="icon" type="image/png" href="~/Content/img/icono-logo-220x240.png">
+    <link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    @{
+        IManagerApplication _ManagerApplication = new ManagerApplication();
+
+        UsuarioEN usuario = _ManagerApplication.getUsuarioTienda(new UsuarioEN()
+        {
+            V_USUARIO = Request.IsAuthenticated ? User.Identity.Name : string.Empty
+        });
+        var modelTienda = _ManagerApplication.getTienda(new TiendaEN()
+        {
+            I_CODIGO_TIENDA = String.IsNullOrEmpty(Request.QueryString["id"])? 0 : Infraestruture.CrossCutting.DataConvert.ToInt32(Encrypting.DecryptKey(Request.QueryString["id"])),
+            V_USER = String.IsNullOrEmpty(Request.QueryString["id"])? User.Identity.Name : string.Empty
+        });
+        
+        
+    }
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-confirm/customAlert.js"></script>
+    <script src="~/Scripts/bootstrap-confirm/bootstrap-dialog.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="~/Scripts/chart.js/Chart.min.js"></script>
+    <script src="~/Scripts/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="~/Scripts/Codemaleon/ns.js"></script>
+    <script src="~/Scripts/jquery.number.js"></script>
+
+</head>
+
+<body id="page-top">
+    @* <style type="text/css">
+            .sidebar.toggled .nav-item .nav-link span {
+                font-size: 12px;
+                color: white;
+                font-weight: bold;
+            }
+        </style>*@
+
+    <input type="hidden" id="hdnTienda" value="@modelTienda.I_CODIGO_TIENDA" />
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Admin")">
+                <div class="sidebar-brand-icon ">
+                    <i class="fas fa-store"></i>
+                </div>
+            </a>
+            <hr class="sidebar-divider my-0">
+
+            @if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole(Constantes.Perfiles.Administrador) || User.IsInRole(Constantes.Perfiles.Empresa))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Admin")">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <hr class="sidebar-divider">
+                    <div class="sidebar-heading">
+                        Tienda
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("datostienda", "admin")">
+                            <i class="fas fa-store"></i>
+                            <span>Datos Tienda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("index", "Apptv", new { name = modelTienda.V_TIENDA })">
+                            <i class="fas fa-store"></i>
+                            <span>Tienda Virtual</span>
+                        </a>
+                    </li>
+
+                    <hr class="sidebar-divider">
+                    <div class="sidebar-heading">
+                        Gestión
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("bandejaOrdenes", "Admin")">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Órdenes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("bandejaProductos", "Admin")">
+                            <i class="fas fa-book"></i>
+                            <span>Productos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("categoria", "Admin")">
+                            <i class="fas fa-book"></i>
+                            <span>Categorias</span>
+                        </a>
+                    </li>
+                    if (User.IsInRole(Constantes.Perfiles.Administrador))
+                    {
+                     <hr class="sidebar-divider">
+                    <div class="sidebar-heading">
+                        Admin
+                    </div>
+                        <li class="nav-item" id="linkClientes">
+                            <a class="nav-link" href="@Url.Action("clientes", "Admin")">
+                                <i class="far fa-address-book"></i>
+                                <span>Clientes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("regPlan", "Admin")">
+                                <i class="far fa-address-book"></i>
+                                <span>Planes</span>
+                            </a>
+                        </li>
+                    }
+                }
+            }
+
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="sidebar-brand-icon">
+                        <img class="img-fluid rounded-circle" style="height: 70px; width: auto;" name="imgLogo" src="@modelTienda.V_LOGO" alt="@modelTienda.V_RAZON_SOCIAL" />
+                        <span class="text-uppercase">@modelTienda.V_TIENDA</span>
+                    </div>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - CART -->
+                        <!-- Nav Item - User Information -->
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small text-uppercase">Hola, @(usuario.V_NOMBRES.ToUpper().Length == 0 ? User.Identity.Name : usuario.V_NOMBRES.ToUpper())!</span>
+                                    @if (String.IsNullOrEmpty(usuario.V_PHOTO_URL))
+                                    {
+                                        <i class="fas fa-user"></i>
+                                    }
+                                    else
+                                    {
+                                        <img class="img-profile rounded-circle" width="50" height="50" src="@usuario.V_PHOTO_URL" />
+                                    }
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Usuario: @User.Identity.Name
+                                    </a>
+                                    <a class="dropdown-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Perfil: @Roles.GetRolesForUser(User.Identity.Name).FirstOrDefault()
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Tienda: @usuario._TiendaEN.V_TIENDA.ToUpper()
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    @using (Html.BeginForm("LogOff", "Admin", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Cerrar Session
+                                        </button>
+                                    }
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+
+                </nav>
+
+                <div class="fixed-top" style="z-index: 999999 !important;">
+                    <div id="divAlerta"></div>
+                </div>
+                <div class="container-fluid mb-3">
+
+
+                    @RenderBody()
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>@Constantes.EMPRESA.piePagina - @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <div class="modal-preload d-none"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i> Procesando </div></div></div>
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Scripts/View/Admin/sb-admin.min.js"></script>
+
+
+    @if (Request.IsAuthenticated)
+    {
+        if (User.IsInRole(Constantes.Perfiles.Administrador) || User.IsInRole(Constantes.Perfiles.Empresa))
+        {
+            <script src="~/Scripts/View/Admin/Index.js"></script>
+            <script src="~/Scripts/View/Admin/Controller.js"></script>
+
+            <script src="~/Scripts/View/Producto/Index.js"></script>
+            <script src="~/Scripts/View/Producto/Controller.js"></script>
+            
+        
+                <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+                @*<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>*@
+                <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+                <script src="~/Scripts/View/Login/firebase-Init.js"></script>
+
+        }
+    }
+    <script type="text/javascript">
+        ns('Web.Parametro')
+        Web.Parametro.fileImagesFirebase = '@usuario.IdUsuario';
+        ns('Web.Route.Url')
+        Web.Route.Url.home = '@Request.Url.GetLeftPart(UriPartial.Authority)';
+        ns('Web.Route.UrlApi')
+        Web.Route.UrlApi.CarritoCompra = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/CarritoCompra';
+        Web.Route.UrlApi.Search = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/Search';
+        Web.Route.UrlApi.MisPedidos = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/MisPedidos';
+        Web.Route.UrlApi.UsuarioProviderAuth = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/AuthProvider';
+        Web.Route.UrlApi.setProductoMantenimiento = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/ProductoMantenimiento';
+        Web.Route.UrlApi.getCategorias = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/Categorias';
+
+        ns('Web.Authenticate.User')
+        Web.Authenticate.User.CodigoUsuario = '@(Request.IsAuthenticated ? Infrastructure.CrossCutting.Encrypting.EncryptKey(WebSecurity.GetUserId(User.Identity.Name).ToString()) : "-1")';
+        Web.Authenticate.User.CodigoUsuarioNoAutenticado = '-1';
+
+        if ('@Request.Url.GetLeftPart(UriPartial.Authority)' + '/admin/datostienda' != window.location.href) {
+            if ('@modelTienda.I_CODIGO_TIENDA' == 0) {
+                window.location.href = '@Url.Action("datostienda","admin")';
+            }
+        }
+        
+
+    </script>
+    <script src="~/Scripts/View/Master.js"></script>
+
+</body>
+
+
+</html>
+

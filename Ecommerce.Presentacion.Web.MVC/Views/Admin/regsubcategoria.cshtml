@@ -1,0 +1,43 @@
+﻿@model Domain.Entities.CategoriaEN
+@{
+    ViewBag.Title = "regcategoria";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Nueva Sub Categoria de : <b>@(Model.V_CATEGORIA)</b></h1>
+<p class="mb-4">Completar el siguiente formulario.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        @using (Html.BeginForm("registerCategoria", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.TextBoxFor(m => m.I_CATEGORIA_PADRE, new { @class = "d-none" })
+            <fieldset>
+                <legend></legend>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_CATEGORIA)
+                            @Html.TextBoxFor(m => m.V_CATEGORIA, new { @class = "form-control text-uppercase" })
+                            @Html.ValidationMessageFor(model => model.V_CATEGORIA)
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Estado Registro</label>
+                            <select name="B_ACTIVE" class="form-control text-uppercase">
+                                <option value="true" @(Convert.ToBoolean(Model.B_ACTIVE) ? "selected" : "")>Activo</option>
+                                <option value="false" @(Convert.ToBoolean(Model.B_ACTIVE) == false ? "selected" : "")>Desactivado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary ml-1"><span class="fas fa-save"></span> Guardar</button>
+            </fieldset>
+        }
+    </div>
+</div>

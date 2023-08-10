@@ -1,0 +1,353 @@
+﻿@model List<Domain.Entities.DetalleCompraTempEN>
+@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+@{
+    ViewBag.Title = "Mi Bolsa de Compra";
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
+<!-- Incluyendo Culqi Checkout -->
+<script src="https://checkout.culqi.com/js/v3"></script>
+@{
+        IManagerApplication _ManagerApplication = new ManagerApplication();
+        
+        UsuarioEN usuario = _ManagerApplication.getUsuario(new UsuarioEN()
+        {
+            V_USUARIO = Request.IsAuthenticated? User.Identity.Name : string.Empty
+        });
+
+        var modelTienda = _ManagerApplication.getTienda(new TiendaEN()
+        {
+            V_WEB = Request.QueryString["name"]
+        });
+        
+}
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+
+<div class="modal-preload d-none"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i></div></div></div>
+<style>
+    textarea.form-control, input.form-control.text-uppercase {
+            border: 1px solid darkblue;
+            background: white;
+            color: black;
+            font-weight: bold;
+            border-radius: 15px;
+    }
+    label {
+        font-weight: bold;
+        color: darkblue;
+    }
+    .card-header {  
+        background: inherit;
+        border: initial;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+</style>
+<div>
+    @if (Request.IsAuthenticated)
+    {
+        <section class="our-checkout-area ptb--40 bg__white">
+            <div class="container-fluid">
+                  
+                <div class="row">
+                    <div class="co-lg-6 col-md-8 col-sm-12 ">
+                        <div class="section-title-3 mb-3"><span class="ti-credit-card"></span> Proceso de Pago</div>
+                        <nav>
+                          <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-1" role="tab" aria-selected="true">Paso N° 1</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-2" role="tab" aria-selected="false">Paso N° 2</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-3" role="tab" aria-selected="false">Paso N° 3</a>
+                          </div>
+                        </nav>
+                        <div class="tab-content">
+                          <div class="tab-pane fade show active" id="nav-1" role="tabpanel">
+                              <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            1. Datos del Titular
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show">
+                                    <div class="card-body" style="text-align:left !important;">
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Nombres Completos:</label>
+                                                <input type="text" class="form-control text-uppercase" placeholder="Nombres Completos" name="nombres" value="@(usuario.V_NOMBRES + " " + usuario.V_APELLIDOS)">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>DNI:</label>
+                                                <input type="text" class="form-control text-uppercase" placeholder="DNI" name="dni" value="@(usuario.V_DNI)">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Celular:</label>
+                                                <input type="text" class="form-control text-uppercase" placeholder="Celular" name="celular" value="@(usuario.I_CELULAR.Equals(0)? "" : usuario.I_CELULAR.ToString())">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Email:</label>
+                                                <input type="email" class="form-control text-uppercase" placeholder="Email" name="email" value="@(usuario.V_EMAIL)">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="nav-2" role="tabpanel">
+                              <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            2. Dirección de Despacho
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
+                                    <div class="card-body" style="text-align:left !important;">
+                                        <div class="form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <label>Departamento</label>
+                                                <input type="text" class="form-control text-uppercase" name="cboDpto" />
+                                         
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Provincia</label>
+                                                <input type="text" class="form-control text-uppercase" name="cboProv" />
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Distrito</label>
+                                                <input type="text" class="form-control text-uppercase" name="cboDist" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-1">
+                                                <label>Dirección:</label>
+                                                <textarea class="form-control text-uppercase" name="direccion_entrega" placeholder="Dirección de Entrega">@(usuario.V_DIRECCION)</textarea>
+                                                <label style="font-size:11px; display:none;" name="coordenadas"></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-1">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="hdnlatitud" />
+                                                    <input type="hidden" name="hdnlongitude" />
+                                                    <div class="alert alert-info mb-1">
+                                                        <b>Arrastre</b> el punto <span style="color:red; font-size:25px;" class="fa fa-map-marker"></span> en su punto de despacho.
+                                                        <a name="linkCurrentLocation"><b><i><u>ver Mi ubicación actual</u></i></b></a>
+                                                    </div>
+                                                    <div id="map" style="height: 400px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="nav-3" role="tabpanel">
+                              <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            3. Confirmar Pago
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseThree" class="collapse show">
+                                    <div class="card-body" style="text-align:left !important;">
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div class="card border-primary mb-3">
+                                                    <div class="card-header">Forma de Pago 1</div>
+                                                    <div class="card-body text-primary">
+                                                        <div class="card-title">
+                                                            <div class="custom-control custom-radio custom-control-inline">
+                                                                <input type="radio" id="customRadioInline1" name="cboformapago" class="custom-control-input" 
+                                                                       value="@Infrastructure.CrossCutting.Constantes.FormaPago.Reserva">
+                                                                <label class="custom-control-label" for="customRadioInline1">Delivery</label>
+                                                            </div>
+                                                        </div>
+                                                        <div name="divPagoContraEntrega" class="d-none">
+                                                            <div class="wc-proceed-to-checkout">
+                                                                <a href="#" name="btnPagar"
+                                                                   data-op="@Infrastructure.CrossCutting.Constantes.FormaPago.Reserva">
+                                                                    <span class="ti-credit-card"></span>  Reservar mi Pedido
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card border-primary mb-3">
+                                                    <div class="card-header">Forma de Pago 2</div>
+                                                    <div class="card-body text-secondary">
+                                                        <div class="card-title">
+                                                            <div class="custom-control custom-radio custom-control-inline">
+                                                        
+                                                                <input type="radio" id="customRadioInline2" name="cboformapago" class="custom-control-input" 
+                                                                       value="@Infrastructure.CrossCutting.Constantes.FormaPago.PagoOnline">
+                                                                <label class="custom-control-label" for="customRadioInline2">Pago con Tarjeta</label>
+                                                            </div>
+                                                        </div>
+                                               
+                                                        <div name="divPagoOnline" class="d-none">
+                                                            <div class="our-payment-sestem">
+                                                                <ul class="payment-menu">
+                                                                    <li>
+                                                                        <img src="~/Content/uniqlo/images/payment/t-visa.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-mastercard.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-american.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-diners.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-cencosud.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-oh.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-ripley.png" style="height: 25px;width: 37px;">
+                                                                        <img src="~/Content/uniqlo/images/payment/t-unionpay.png" style="height: 25px;width: 37px;">
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="wc-proceed-to-checkout">
+                                                                <a href="#" name="btnPagar"
+                                                                   data-op="@Infrastructure.CrossCutting.Constantes.FormaPago.PagoOnline">
+                                                                    <span class="ti-credit-card"></span>  Pagar S/ @ViewBag.total
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-auto my-1">
+                                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                                        <label class="custom-control-label" for="customControlAutosizing">Acepto los términos y condiciones</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="co-lg-6 col-md-4 col-sm-12  d-none d-lg-block">
+                        <div class="section-title-3 mb-3"><span class="ti-shopping-cart-full"></span> Mi Bolsa de Compra</div>
+                         <div class="table-content table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">imagen</th>
+                                            <th class="product-name">producto</th>
+                                            <th class="product-price">precio</th>
+                                            <th class="product-quantity">cantidad</th>
+                                            <th class="product-subtotal">Total</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="@Url.Action("verProducto", "Home", new { name = ViewBag.name, id = item.idprodEnc, token = ViewBag.token })"><div class="product-thumbnail"><img src="@item.V_URL_PRINCIPAL" /></div></a></td>
+                                                <td class="product-name"><a href="@Url.Action("verProducto", "Home", new { name = ViewBag.name, id = item.idprodEnc, token = ViewBag.token })">@item.V_PRODUCTO</a></td>
+                                                <td class="product-price"><span class="amount">S/ @item.N_PRECIO</span></td>
+                                                <td class="product-quantity">@item.cant</td>
+                                                <td class="product-subtotal">S/ @Infraestruture.CrossCutting.DataConvert.ToDecimal(item.cant * item.N_PRECIO)</td>
+                                            </tr>
+                                        }
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+               </div>
+                <div class="row d-none">
+
+                    <div class="col-md-4 col-lg-4">
+                        <div class="checkout-right-sidebar">
+                            <div class="our-important-note">
+
+                                <div class="alert alert-dark">
+                                    <h2 class="section-title-3">Nota</h2>
+                                    <p class="note-desc">La compra por internet está respaldada por la pasarela de pago <a href="https://www.culqi.com/productos/mundo-online/" target="_blank"><b>CULQI ONLINE</b></a>. Asimismo, <a href="http://sisadri.azurewebsites.net/" target="_blank"><b>Sistemas Adrianzen EIRL </b></a>  garantiza un seguimiento a la entrega de su(s) producto(s), evitando de esta manera cualquier tipo de estafa y actos que van en contra de nuestras políticas.</p>
+                                </div>
+                                <div class="alert alert-dark">
+                                    <ul class="important-note">
+                                        <li><a><i class="zmdi zmdi-caret-right-circle"></i>RAZON SOCIAL: @modelTienda.V_RAZON_SOCIAL</a></li>
+                                        <li><a><i class="zmdi zmdi-caret-right-circle"></i>RUC: @modelTienda.V_RUC</a></li>
+                                        <li><a><i class="zmdi zmdi-caret-right-circle"></i>Dirección: @modelTienda.V_DIRECCION</a></li>
+                                        <li><a href="@modelTienda.V_WEB" target="_blank"><i class="zmdi zmdi-caret-right-circle"></i>Ver Sitio Web</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="puick-contact-area mt--60">
+                                <div>
+
+
+                                    <h2 class="section-title-3">Contacto</h2>
+                                    <a target="_blank" href="https://wa.me/@(modelTienda.V_TELEFONO)/?text=Hola!%20Estoy%20interesado%20en%20comprar%20algunos%20de%20sus%20productos,%20en%20su%20tienda%20virtual%20.">
+                                        <img style="width:29px;" src="~/Content/img/icon-whatsapp-48.png" />Whatsapp
+                                    </a>
+                                    <br /><a target="_blank" href="https://m.me/@modelTienda.V_FACEBOOK"><img style="height: 21px;width: 20px;" src="~/Content/img/chatfacebook.png"> Messenger</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Checkout Area -->
+                                            
+    }else{
+        <a title="Registrate" href="@Url.Action("RegisterUser", "Account", new { name = modelTienda.V_TIENDA, token = Request.QueryString["token"] })"><span class="ti-user"></span>Registrarse</a>    
+        
+    }
+</div>
+
+@section Scripts {
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRUVAqVW6wwsrNag54gesRe9kPbxa497c"></script>
+    <script src="~/Scripts/View/Checkout/Index.js"></script>
+    <script src="~/Scripts/View/Checkout/Controller.js"></script>
+}   
+   
+
+
+  <script type="text/javascript">
+    ns('Web.Route.UrlApi')
+    Web.Route.UrlApi.detalleCompra = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/DetalleCompra';
+    Web.Route.UrlApi.totalBolaCompra = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/TotalBolsaCompra';
+    Web.Route.UrlApi.CarritoCompra = '@Url.Action("setCarritoCompra", "Pedidos")';
+    ns('Web.Home.Constantes')
+    Web.Home.Constantes.PagoOnline = '@Infrastructure.CrossCutting.Constantes.FormaPago.PagoOnline';
+    Web.Home.Constantes.token = '@Request.QueryString["token"]';
+    
+    ////es invocado desde base.Event.btnCulqiClick de Controller.js
+    function culqi() {
+        //Hasta aquí no se ha procesado ningun pago ni cargo, solo se ha generado el token.
+        console.log(Culqi);
+        if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+            var token = Culqi.token.id;
+            var base = new Ecommerce.Web.Checkout.Controller();
+            base.Event.setCarShopping(token);
+
+        } else { // ¡Hubo algún problema!
+            // Mostramos JSON de objeto error en consola
+            console.log(Culqi.error);
+            alerta('danger', Culqi.error.user_message);
+        }
+    };
+    </script>

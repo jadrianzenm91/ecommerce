@@ -1,0 +1,51 @@
+﻿@model List<Domain.EntitiesLogic.CarritoCompraEL>
+@{
+    ViewBag.Title = "Bandeja de Órdenes de Compra";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h1 class="h3 mb-2 text-gray-800">Bandeja de Órdenes</h1>
+<p class="mb-4">Gestiona los pedidos de tus clientes. Ver el detalle de su compra/reserva que realizó y atenderlo.</p>
+<div>
+    <div class="form-group">
+        <a class="btn btn-primary disabled" href="@(Url.Action("registroOrden", "Admin"))" name="btnNuevo"><i class="fas fa-plus"></i> Nueva Orden</a>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+            <table name="tblOrdenes" class="table table-bordered dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Fecha Compra</th>
+                        <th>Total</th>
+                        <th>Forma Pago</th>
+                        <th>Estado Actual</th>
+                        <th>Ver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.codigoCompra</td>
+                            <td>@item.usuario</td>
+                            <td>@item.fechaCompra</td>
+                            <td>S/ <label class="number">@item.total</label></td>
+                            <td>@item.formaPago</td>
+                            <td><span class="@(item.codigoEstadoCompra.ToString().Equals(Infrastructure.CrossCutting.Constantes.EstadoCompra.Anulado.ToString()) ? "badge badge-danger" : "")">@item.estadoCompra</span></td>
+                            <td><a href="@Url.Action("detallecompra", "Admin", new { idencryp = Infrastructure.CrossCutting.Encrypting.EncryptKey(item.codigoCompra.ToString())})"><span class="fas fa-eye"></span></a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+          </div>      
+    </div>
+</div>
+<script type="text/javascript">
+    $('.number').number(true, 2);
+    $('[name="tblOrdenes"]').DataTable();
+</script>

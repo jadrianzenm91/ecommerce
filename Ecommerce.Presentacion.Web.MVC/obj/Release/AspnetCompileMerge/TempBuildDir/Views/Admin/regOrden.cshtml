@@ -1,0 +1,49 @@
+﻿@model Domain.EntitiesLogic.CarritoDetalle
+@{
+    ViewBag.Title = "regOrden";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Nueva Orden/Venta</h1>
+<p class="mb-4">Registra las ventas que realizas a tus clientes con la finalidad de llevar la administración de tu negocio.</p>
+
+<form>
+    <div class="form-row">
+
+        <div class="form-group col-md-4">
+            <label>Forma de Pago:</label>
+            <input type="text" class="bg-info text-white form-control text-uppercase" disabled="disabled" value="@Model.carritoCompraEL.formaPago">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Fecha de Compra:</label>
+            <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.fechaCompra">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Total (S/.):</label>
+            <input type="text" class="form-control number" disabled="disabled" value="@Model.carritoCompraEL.total">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Cliente:</label>
+            <input type="text" class="form-control text-uppercase" disabled="disabled" value="@Model.carritoCompraEL.nombres">
+        </div>
+
+        <div class="form-group col-md-4">
+            <label>Correo de Contacto:</label>
+            <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.email">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Telefono de Contacto:</label>
+            <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.celular">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>Dirección de Contacto:</label>
+            <textarea class="form-control text-uppercase" disabled="disabled">@Model.carritoCompraEL.direccion</textarea>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,285 @@
+﻿@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <!-- content begin -->
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
+            
+            <!-- section begin -->
+            <section id="subheader" data-bgimage="url(/Content/theme3/images/background/5.png) bottom">
+                    <div class="center-y relative text-center" data-scroll-speed="4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 offset-md-2">
+                                    <form action='blank.php' class="row" id='form_subscribe' method="post" name="myForm">
+                                <div class="col-md-12 text-center">
+									<h1>Hosting + Dominio + SSL</h1>
+									<p>Aloja tu Sitio web en los mejores servidores más disponibles del mundo.</p>
+                                    
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+            <!-- section close -->
+			
+			<section class="no-top" data-bgimage="url(/Content/theme3/images/background/6.png) center">
+				<div class="container">
+                    <div class="row align-items-center">
+					
+						<div class="col-md-6">
+							<h3>Hosting + Dominio + SSL</h3>
+                             Te imaginaste tener tu página web seguro (https://mipagina.com) en un solo proveedor? Sí! esto 
+                             es posible y no mueves ni un dedo para poner tu pagina en internet ya que nosotros lo hacemos por tí, 
+                             y será posible que tus clientes te encuentren en google con el beneficio de posicionamiento incluído.
+						</div>
+						
+						<div class="col-md-6">
+							<img src="/Content/img/mitienda.png" class="img-fluid" alt="">
+						</div>
+						
+					</div>
+					
+					<div class="spacer-double"></div>
+					
+					<div class="row">
+						
+							<div class="spacer-double"></div>
+							
+							<div class="col-md-12 text-center">
+							<h3>Preguntas y Respuestas</h3>
+							</div>
+							
+							<div class="col-md-6">
+							<div id="accordion-1" class="accordion accordion-style-1">
+
+								<!-- Accordion item 1 -->
+								<div class="card">
+									<div id="heading-a1" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-a1" aria-expanded="false" aria-controls="collapse-a1" class="d-block position-relative text-dark collapsible-link py-2">Qué es es una Tienda Virtual?</a></h6>
+									</div>
+									<div id="collapse-a1" aria-labelledby="heading-a1" data-parent="#accordion-1" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Es una plataforma web donde podrás vender tus productos desde internet con cualquier tarjeta de crédito o débito y 
+                                                generar así mayores ingresos en tu negocio. También te permite gestionar el negocio desde una plataforma web donde sólo el
+                                                dueño tendrá acceso</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Accordion item 2 -->
+								<div class="card">
+									<div id="heading-a2" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-a2" aria-expanded="false" aria-controls="collapse-a2" class="d-block position-relative collapsed text-dark collapsible-link py-2">Qué necesito para tener mi Tienda Virtual?</a></h6>
+									</div>
+									<div id="collapse-a2" aria-labelledby="heading-a2" data-parent="#accordion-1" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Debes registrarte <a href="@Url.Action("register","TiendaVirtual")" target="_blank">aquí</a> con sus datos personales y podrás ingresar a tu <a target="_blank" href="@Url.Action("login","admin")">panel de administración </a>por 1 mes gratis para tus pruebas.</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Accordion item 3 -->
+								<div class="card">
+									<div id="heading-a3" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-a3" aria-expanded="false" aria-controls="collapse-a3" class="d-block position-relative collapsed text-dark collapsible-link py-2">Cómo recibo los pagos online en mi Tienda Virtual?</a></h6>
+									</div>
+									<div id="collapse-a3" aria-labelledby="heading-a3" data-parent="#accordion-1" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Desde su <a target="_blank" href="@Url.Action("login","admin")">Panel de Aadministración</a> debe habilitar el método de pago en línea, el cual 
+                                                le va solicitar afiliarse a <a target="_blank" href="https://afiliate.culqi.com/online">Culqi Online</a> y tendrás que seguir el procedimiento de configuración 
+                                                de su Tienda Virtual. 
+											</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<!-- Accordion -->
+							<div id="accordion-2" class="accordion accordion-style-1">
+
+								<!-- Accordion item 1 -->
+								<div class="card">
+									<div id="heading-b1" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-b1" aria-expanded="false" aria-controls="collapse-b1" class="d-block position-relative text-dark collapsible-link py-2">Puedo vender y cobrar contra entrega?</a></h6>
+									</div>
+									<div id="collapse-b1" aria-labelledby="heading-b1" data-parent="#accordion-2" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Sí. Tu Tienda Virtual te permite habilitar la opción pago Contra-Entrega y así tu cliente pueda reservar sus producto y elegir la opción pagar contra-entrega.</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Accordion item 2 -->
+                                <div class="card">
+									<div id="heading-b3" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-b3" aria-expanded="false" aria-controls="collapse-b3" class="d-block position-relative collapsed text-dark collapsible-link py-2">Puedo realizar el servicio de Delivery?</a></h6>
+									</div>
+									<div id="collapse-b3" aria-labelledby="heading-b3" data-parent="#accordion-2" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Sí. Tu Tienda Virtual le da la opción a tus clientes que habiliten su gps o coloquen su dirección de entrega para que puedas realizar tu delivery a través de Panel de Administración - Gestión de Pedidos.</p>
+										</div>
+									</div>
+								</div>
+								
+
+								<!-- Accordion item 3 -->
+								<div class="card">
+									<div id="heading-b2" class="card-header bg-white shadow-sm border-0">
+										<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse-b2" aria-expanded="false" aria-controls="collapse-b2" class="d-block position-relative collapsed text-dark collapsible-link py-2">Genera comisiones vender por internet?</a></h6>
+									</div>
+									<div id="collapse-b2" aria-labelledby="heading-b2" data-parent="#accordion-2" class="collapse">
+										<div class="card-body p-4">
+											<p class="m-0">Sí. La plataforma web trabaja con la pasarela de pagos CULQI ONLINE y por cada
+                                                venta realizada se cobra una comisión. Ver más <a target="_blank" href="https://culqi.com/">aquí</a>.</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+				</div>
+							
+										
+								
+									</div>
+			</section>
+			
+			 <!-- section close -->
+<section class="no-top" data-bgimage="url(images/background/6.png) top" style="background: url(&quot;images/background/6.png&quot;) center top / cover; margin-top:15px;">
+                <div class="" style="background-size: cover;">
+					<div class="row" style="background-size: cover; display:none;">
+                        <div class="col text-center" style="background-size: cover;">				
+							<div class="switch-set" style="background-size: cover;">
+								<div style="background-size: cover;">Mensual</div>								
+								<div style="background-size: cover;"><input id="sw-1" class="switch" type="checkbox"></div>					
+								<div style="background-size: cover;">Anual</div>
+								<div class="spacer-20" style="background-size: cover;"></div>
+							</div>
+							
+                        </div>
+                    </div>
+                    <div class="item pricing" style="background-size: cover;">
+                        <div class="container" style="background-size: cover;">
+                            <div class="row" style="background-size: cover;">
+                                <div class="col-lg-12 col-md-6 col-sm-12" style="background-size: cover;">
+                                    <div class="pricing-s1 mb30" style="background-size: cover;">
+                                        <div class="top" style="background-size: cover;">
+                                            <h2>Único Plan</h2>
+											<p class="plan-tagline">Beneficios exclusivos!</p>            
+                                        </div>
+										<div class="mid text-light bg-color" style="background-size: cover;">
+                                            <p class="price">
+												<span class="currency">S/</span>
+												<span class="m opt-1">39.90</span>
+												<span class="y opt-2">419.90</span>
+												<span class="month opt-1">p/mes</span>
+                                                <span class="month opt-2">p/año</span>
+											</p>               
+                                        </div>
+												
+                                        <div class="bottom" style="background-size: cover;">
+
+                                            <ul class="text-center">
+                                                <li title="La dirección de la Tienda Virtual sería https://sisadri.pe/mi/tienda/[nombre_tienda]"><i class="fa fa-check"></i>Dominio compartido</li>
+                                                <li><i class="fa fa-lock"></i>SSL Certificado Seguro</li>
+                                                <li><i class="fa fa-globe"></i>Site Tienda Virtual Estándar</li>
+                                                <li><i class="fa fa-check"></i>Ilimitado Productos en Catálogo</li>
+                                                <li><i class="fa fa-check"></i>Hasta 10 Fotos c/producto</li>
+                                                <li><i class="fa fa-check"></i>Soporte las 24/7</li>
+												<li><i class="fa fa-user"></i>CPanel Control</li>
+                                                <li><i class="fa fa-dollar"></i>Ventas ilimitado</li>
+                                                <li><i class="fa fa-truck"></i>Delivery ilimitado</li>
+                                                <li><i class="fa fa-whatsapp"></i>Botón de acceso a Whatsapp</li>
+                                                <li><i class="fa fa-facebook"></i>Botón de acceso a Messenger Facebook</li>
+                                                <li><i class="fa fa-paper-plane"></i>Notificación por E-mail</li>
+                                                <li><i class="fa fa-line-chart"></i>Dashboard Estadísticos</li>
+                                            </ul>
+                                        </div>
+												
+										<div class="action" style="background-size: cover;">
+                                            <a href="@Url.Action("register","TiendaVirtual")" class="btn-custom">Comience Ahora</a>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </section>
+   
+
+            <section data-bgimage="url(images/background/7.png) center">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<h2><span class="id-color">Contáctanos</span> para más información. La atención de cliente de SISADRI está aquí para ayudarlo en <span class="id-color">cualquier momento</span>. </h2>
+							<p class="lead">Disponibles las 24 horas!</p>
+						</div>
+						
+						<div class="col-md-6 text-lg-center text-sm-center">
+							<div class="phone-num-big">
+								<i class="fa fa-envelope"></i>
+								<span class="pnb-text">
+									
+								</span>
+								<span class="pnb-num">
+									
+								</span>
+							</div>
+                            <a href="mailto:contacto.sisadri@gmail.com" class="btn-custom capsule med">Contáctanos</a>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section id="section-fun-facts" class="pt40 pb40 text-light bg-color-3">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="84332" data-speed="3000">0</h3>
+                                <span title="Total de visitas en su tienda virtual">Visitas*</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="8745" data-speed="3000">0</h3>
+                                <span>Clientes</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6" data-wow-delay=".5s">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="45021" data-speed="3000">0</h3>
+                                <span title="Promedio de transacciones que realizan los clientes en su propia tienda virtual">Transacciones*</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+        <!-- content close -->
+ @section Scripts {
+<script>
+    
+    $(document).ready(function () {
+        $('header').addClass('header-light');
+    });
+</script>
+}

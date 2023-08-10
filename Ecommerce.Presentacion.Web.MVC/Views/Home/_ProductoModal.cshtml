@@ -1,0 +1,99 @@
+﻿<!-- QUICKVIEW PRODUCT -->
+    <div id="quickview-wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="mdlProducto" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal__container" role="document" style="width: unset;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        {{producto.V_PRODUCTO}}<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-product">
+                            <!-- Start product images -->
+                            <div  ng-show="productoImagenes.length == 0">
+                                 <div class="product-images">
+                                        <div class="main-image images">
+                                            <img alt="{{producto.V_PRODUCTO}}" ng-src="https://firebasestorage.googleapis.com/v0/b/e-commerce-c6d82.appspot.com/o/productos%2Fimg600x600.png?alt=media&token=bb295af6-bed7-4398-97e4-b6abd1204d08" />
+                                        </div>
+                                </div>
+                            </div>
+                           
+                            <div ng-show="productoImagenes">
+                                <div>
+                                    <div ng-repeat="item2 in productoImagenes">
+                                        <div class="main-image images text-center">
+                                            <img  alt="{{producto.V_PRODUCTO}}" ng-src="{{item2.V_URL}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end product images -->
+                            <div class="product-info">
+                                <h1>{{producto.V_PRODUCTO}}</h1>
+                                <div class="rating__and__review">
+                                    <ul class="rating">
+                                        <li><span class="ti-star"></span></li>
+                                        <li><span class="ti-star"></span></li>
+                                        <li><span class="ti-star"></span></li>
+                                        <li><span class="ti-star"></span></li>
+                                        <li><span class="ti-star"></span></li>
+                                    </ul>
+                                    <div class="review">
+                                        <a href="#">4 customer reviews</a>
+                                    </div>
+                                </div>
+                                <div class="price-box-3">
+                                    <div class="s-price-box">
+                                        <span class="new-price">S/ {{producto.N_PRECIO | number : 2}}</span>
+                                        <span class="old-price">S/ {{producto.N_PRECIO + 5| number : 2}}</span>
+                                    </div>
+                                </div>
+                                <div class="product__description__wrap" ng-repeat="item3 in productoCaracteristicas">
+                                    <h2 class="title__6">{{item3.V_CARACTERISTICA}}</h2>
+                                    <p>{{item3.V_VALOR}}</p>
+                                </div>
+                                <div class="select__color d-none">
+                                    <h2>Select color</h2>
+                                    <ul class="color__list">
+                                        <li class="red"><a title="Red" href="#">Red</a></li>
+                                        <li class="gold"><a title="Gold" href="#">Gold</a></li>
+                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
+                                        <li class="orange"><a title="Orange" href="#">Orange</a></li>
+                                    </ul>
+                                </div>
+                                <div class="select__size d-none">
+                                    <h2>Select size</h2>
+                                    <ul class="color__list">
+                                        <li class="l__size"><a title="L" href="#">L</a></li>
+                                        <li class="m__size"><a title="M" href="#">M</a></li>
+                                        <li class="s__size"><a title="S" href="#">S</a></li>
+                                        <li class="xl__size"><a title="XL" href="#">XL</a></li>
+                                        <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
+                                    </ul>
+                                </div>
+                                <div class="social-sharing d-none">
+                                    <div class="widget widget_socialsharing_widget">
+                                        <h3 class="widget-title-modal">Share this product</h3>
+                                        <ul class="social-icons">
+                                            <li><a target="_blank" title="rss" href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
+                                            <li><a target="_blank" title="Linkedin" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
+                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
+                                            <li><a target="_blank" title="Tumblr" href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
+                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr />
+                                <a href="#" class="btn btn-danger" ng-click="addCarShopping(producto)">Agregar <span class="ti-shopping-cart"></span></a>
+                                <a href="#" class="btn btn-primary" title="Quitar del Carrito de Compras" ng-show="productos[$index].cantidad > 0" ng-click="quitCarShopping(producto)">Quitar Producto</a>
+                                
+                            </div><!-- .product-info -->
+                        </div><!-- .modal-product -->
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div>
+        <!-- END Modal -->
+    </div>
+    <!-- END QUICKVIEW PRODUCT --

@@ -1,0 +1,172 @@
+﻿@model List<Domain.Entities.DetalleCompraTempEN>
+@{
+    ViewBag.Title = "Mi Bolsa de Compra";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+}
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+
+<div class="modal-preload hidden"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i></div></div></div>
+
+<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(/Content/uniqlo/images/bg/fondo-1920x290.jpg) no-repeat scroll center center / cover ;">
+    <div class="ht__bradcaump__wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Mi Bolsa de Compra</h2>
+                        <nav class="bradcaump-inner">
+                            <a class="breadcrumb-item" href="@Url.Action("index", "Apptv", new { name = ViewBag.name, token = ViewBag.token })">Home</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb-item active">Mi Bolsa de Compra</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+    <!-- cart-main-area start -->
+    <div class="cart-main-area ptb--80 bg__white">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12">
+                    <h2 class="section-title-3"> <span class="ti-shopping-cart"></span> Mi Bolsa de Compra</h2>
+                    <br />
+                    <form action="#">
+                        <div class="table-content table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">imagen</th>
+                                        <th class="product-name">producto</th>
+                                        <th class="product-price">precio</th>
+                                        <th class="product-quantity">cantidad</th>
+                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-remove"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="product-thumbnail"><a href="#"><img src="@item.V_URL_PRINCIPAL" alt="@item.V_PRODUCTO" /></a></td>
+                                            <td class="product-name"><a href="#">@item.V_PRODUCTO</a></td>
+                                            <td class="product-price"><span class="amount">S/ @item.N_PRECIO</span></td>
+                                            <td class="product-quantity">
+                                                <input class="cart-plus-minus-box text-center"  type="number" name="qtybutton" value="@item.cant" data-id="@item.idprodEnc" data-idt="@item.idEnc" />
+
+                                            </td>
+                                            <td class="product-subtotal">S/ @Infraestruture.CrossCutting.DataConvert.ToDecimal(item.cant * item.N_PRECIO)</td>
+                                            <td><div name="quitProd" data-id="@item.idprodEnc" data-idt="@item.idEnc"><a style="cursor:pointer; color:darkred;">Eliminar</a></div></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12">
+                                <div class="buttons-cart">
+                                    <a href="@Url.Action("index", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })"><span class="ti-shopping-cart"></span> Seguir Comprando</a>
+                                </div>
+                                <div class="coupon">
+                                    <h3>Cupon</h3>
+                                    <p>Ingresa tu codigo de cupon si tuvieras uno.</p>
+                                    <input type="text" placeholder="Codigo del Cupón" />
+                                    <div class="buttons-cart">
+                                        <a href="#">Aplicar Cupón</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="cart_totals">
+
+                                    <table style="min-width:620px;">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">
+                                                    <h2>Totales</h2>
+                                                </th>
+                                            </tr>
+                                            <tr class="cart-subtotal">
+                                                <th>Subtotal</th>
+                                                <td><span class="amount">S/ @(ViewBag.venta)</span></td>
+                                            </tr>
+                                            <tr class="shipping">
+                                                <th>IGV (18%)</th>
+                                                <td>
+                                                    <span class="amount">S/ @(ViewBag.igv)</span>
+                                                </td>
+                                            </tr>
+                                             <tr class="shipping">
+                                                <th>Dcto.</th>
+                                                <td>
+                                                    <span class="amount">S/ 0.00</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th>Total</th>
+                                                <td>
+                                                    <strong><span class="amount">S/ @ViewBag.total</span></strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="wc-proceed-to-checkout" >
+                                                         <a style="background:#ff4136; font-weight: inherit;" href="@Url.Action("checkout", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })"><span class="ti-credit-card"></span> Procesar Pago</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- cart-main-area end -->
+
+
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#header').addClass('header--3 bg__white');
+            $('.slider__container').remove();
+        });
+        $('[name=qtybutton]').on('change', function () {
+            var newVal = $(this).val();
+
+            var obj = { idEnc: $(this).data('idt'), token: '@Request.QueryString["token"]', idprodEnc: $(this).data('id'), cant: newVal };
+
+            $.ajax({
+                url: Web.Route.UrlApi.detalleCompra,
+                "type": 'POST',
+                "data": obj,
+                success: function (response) {
+                    console.log(response);
+                    if (!response.success) {
+                        alerta('danger', 'Ups! Algo salió mal.')
+                    } else {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    </script>
+
+}
+

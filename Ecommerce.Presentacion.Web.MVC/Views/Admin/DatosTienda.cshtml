@@ -1,0 +1,219 @@
+﻿@model Domain.Entities.TiendaEN
+@{
+    ViewBag.Title = "Datos de mi Tienda";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@if (Model.I_CODIGO_TIENDA == 0)
+{
+    <div>
+        <div>
+            <div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert">X</a><strong>Alerta!</strong><span> Debe registrar los datos de su Tienda.</span>
+                <br />No podrá navegar por la plataforma sin haber realizado este paso.
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("_MessageValidacion")
+
+<h1 class="h3 mb-2 text-gray-800">Datos Tienda</h1>
+<p class="mb-4">Datos importantes que se van a mostrar en su Tienda Virtual.</p>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("datostienda", "Admin", new { id = Request.QueryString["id"] })">Datos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("periodosfacturacion", "Admin", new { id = Request.QueryString["id"] })">Mi Facturación</a>
+            </li>
+            
+        </ul>
+        <br />
+        @using (Html.BeginForm("RegisterTienda", "Admin", FormMethod.Post, htmlAttributes: new { @class = "login" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.TextBoxFor(m => m.I_CODIGO_TIENDA, new { @class = "d-none" })
+            <fieldset>
+                <legend></legend>
+                @if (Model.I_CODIGO_TIENDA > 0){
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.I_CODIGO_TIENDA)
+                            @Html.TextBoxFor(m => m.codigoTienda, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                   
+                 </div>
+                    
+                }
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Rubro</label>
+                            <select class="form-control">
+                                <option>--Seleccione--</option>
+                                <option>Abarrotes</option>
+                                <option>Libreria</option>
+                                <option>Alimentos</option>
+                            </select>
+                        </div>
+                    </div>
+                     <div class="col-lg-6">
+                        <label>Logotipo</label>
+                        <div class="progress d-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" name="FileUploadLogo" class="custom-file-input" accept="image/png, image/jpeg" />
+                                @Html.TextBoxFor(m => m.V_LOGO, new { @class = "form-control d-none" })
+                                @Html.ValidationMessageFor(model => model.V_LOGO)
+                                <label class="custom-file-label">Seleccionar...</label>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-lg-6">
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.V_LOGO))
+                            {
+                                <img src="~/Content/img/logo_size.png" class="img-fluid rounded-circle logo" name="imgLogo" />
+                            }
+                            else
+                            {
+                                <img src="@Model.V_LOGO" class="img-fluid rounded-circle logo" name="imgLogo" />
+                            }
+
+                        </div>
+                    </div>*@
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_RAZON_SOCIAL)
+                            @Html.TextBoxFor(m => m.V_RAZON_SOCIAL, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.V_RAZON_SOCIAL)
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_RUC)
+                            @Html.TextBoxFor(m => m.V_RUC, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.V_RUC)
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_TELEFONO)
+                            @Html.TextBoxFor(m => m.V_TELEFONO, new { @class = "form-control", @placeholder = "Ejm: +51949543777" })
+                            @Html.ValidationMessageFor(model => model.V_TELEFONO)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_DIRECCION)
+                            @Html.TextBoxFor(m => m.V_DIRECCION, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.V_DIRECCION)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_WEB)
+                            @Html.TextBoxFor(m => m.V_WEB, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.V_WEB)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_FACEBOOK)
+                            @Html.TextBoxFor(m => m.V_FACEBOOK, new { @class = "form-control", @placeholder = "Ejm: @sistemasadrianzen" })
+                            @Html.ValidationMessageFor(model => model.V_FACEBOOK)
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.V_TIENDA)
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">https://sisadri.pe/mi/tienda/</span>
+                                </div>
+                                @Html.TextBoxFor(m => m.V_TIENDA, new { @class = "form-control text-uppercase", @placeholder = "Ejm: ZAPATOSPATTY" })
+                                @Html.ValidationMessageFor(model => model.V_TIENDA)
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+               
+
+
+
+                <button type="submit" class="btn btn-primary ml-1"><span class="fas fa-save"></span> Guardar</button>
+                <small>* URL de su tienda virtual gratuito.</small>
+            </fieldset>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $('input[name="FileUploadLogo"]').on('change', function () {
+        var input = $(this);
+        var totalFiles = input.length;
+        
+        var storageRef = firebase.storage().ref();
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = input[0].files[0];
+            var fileName = (+new Date() + '-' + file.name.split('.')[0]);
+            var uploadTask = storageRef.child('/productos/' + Web.Parametro.fileImagesFirebase + '/' + fileName).put(file);
+            console.log('imagen ' + fileName);
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+               function (snapshot) {
+                   var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                   
+                   switch (snapshot.state) {
+                      
+                       case firebase.storage.TaskState.RUNNING: 
+                           $('.progress').removeClass('d-none');
+                         
+                           break;
+                   }
+               },
+               function (error) {
+                   $('.progress').addClass('d-none');
+                   console.log(error.code);
+                   alerta('danger', error);
+               },
+               function () {
+                   uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                       
+                       $('img[name=imgLogo]').attr('src', downloadURL);
+                       $('input[name="FileUpload"]').val('');
+                       $('.progress').addClass('d-none');
+                       $('input[name=V_LOGO]').attr('value', downloadURL);
+                   });
+
+               }
+               );
+
+        }
+    })
+
+    </script>
+}

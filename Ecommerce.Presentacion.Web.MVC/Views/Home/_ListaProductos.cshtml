@@ -1,0 +1,96 @@
+﻿@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+@{
+    IManagerApplication _ManagerApplication = new ManagerApplication();
+    var modelTienda = _ManagerApplication.getTienda(new TiendaEN()
+    {
+        V_WEB = Request.QueryString["name"]
+    });
+                                        
+    var listaCategorias = _ManagerApplication.getCategorias(new CategoriaEN()
+    {
+        I_CATEGORIA_PADRE = (int)(Enumeradores.OtherFilters.Todos),
+        I_CODIGO_TIENDA = modelTienda.I_CODIGO_TIENDA
+    });
+    var categorias = listaCategorias.Select(x => x.V_CATEGORIA_PADRE).Distinct();
+                                                    
+   
+}
+
+<section class="htc__product__area shop__page ptb--50 bg__white">
+            <div class="container">
+                <div class="htc__product__container">
+                    <!-- Start Product MEnu -->
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="filter__menu__container">
+                                <div class="product__menu">
+                                    <button class="is-checked" ng-click="filterProductos('')">Todos</button>
+                                    @foreach (var item in categorias)
+                                    {
+                                        var categoriaPadre = listaCategorias.Where(x=>x.V_CATEGORIA_PADRE == item.ToString());
+                                        var idcategoriaPadre = categoriaPadre.FirstOrDefault().I_CATEGORIA_PADRE;
+                                        <button ng-click="filterProductos('@item')">@item</button>
+                                    }
+                                </div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Start Single Product -->
+                       
+                        <div class="col-md-4 single__pro col-lg-3 col-sm-12"  ng-repeat="item in productos | filter:search as results" ng-init="init()">
+                            <div class="product">
+                                <div class="product__inner">
+                                    <div class="pro__thumb">
+                                        <a  ng-click="getProducto(item, $index)">
+                                            <img style="max-width:255px; max-height:255px;" src="{{item.v_url}}" />
+                                        </a>
+                                    </div>
+                                    <div class="product__hover__info">
+                                        <ul class="product__action">
+                                            <li><a data-toggle="modal" ng-click="getProducto(item, $index)" title="Ver Detalle del Producto" class="quick-view modal-view detail-link" href="#"><span class="ti-eye"></span></a></li>
+                                           
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                                <div class="product__details">
+                                    <a ng-click="getProducto(item, $index)">{{item.nombre}}</a>
+                                    <label class="h6"><a>{{item.categoria}}</a></label>
+                                    
+                                    <ul class="product__price">
+                                        <li class="old__price">S/ {{item.precio + 6| number : 2}}</li>
+                                        <li class="new__price">S/{{item.precio| number : 2}}</li>
+                                    </ul>
+                                    <div class="input-group">
+                                          <div class="input-group-prepend" ng-click="addCarShopping(item)" ng-show="productos[$index].cantidad > 0">
+                                            <span class="input-group-text"><span class="ti-plus"></span></span>
+                                          </div>
+                                           <input type="number" ng-show="productos[$index].cantidad > 0" 
+                                                ng-model="productos[$index].cantidad" 
+                                                ng-change="ChangeCantidadCarShopping(item, productos[$index].cantidad)" 
+                                                class="form-control text-center cantidad-pedidos" />
+                                          <div class="input-group-append" ng-click="quitCarShopping(item)" ng-show="productos[$index].cantidad > 0">
+                                            <span class="input-group-text"><span class="ti-minus"></span></span>
+                                          </div>
+                                        </div>
+                                    <div class="text-left btn btn-danger" ng-show="productos[$index].cantidad == 0">
+                                        <a style="color: white; font-size:14px;" title="Agregar al Carrito de Compras"  ng-click="addCarShopping(item)">Agregar 
+                                            <span class="ti-shopping-cart"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+

@@ -1,0 +1,28 @@
+﻿@model List<Domain.Entities.DetalleCompraTempEN>
+
+<div class="shp__cart__wrap">
+    @foreach (var item in Model)
+    {
+        <div class="shp__single__product">
+            <div class="shp__pro__thumb">
+                <a href="@Url.Action("productodetalle", new { name = ViewBag.name, id = item.idprodEnc, token = ViewBag.token })">
+                    <img src="@item.V_URL_PRINCIPAL" style="width:60px; height:60px;" alt="product images">
+                </a>
+            </div>
+            <div class="shp__pro__details">
+                <h2><a href="#" class="text-uppercase">@item.V_PRODUCTO</a></h2>
+                <span class="quantity">Cant.: @item.cant</span>
+                <span class="shp__price">P.Unit: S/. @item.N_PRECIO</span>
+            </div>
+            <div class="remove__btn">
+                <a title="Quitar el producto de mi Bolsa de Compra" name="quitProd" data-id="@item.idprodEnc" data-idt="@item.idEnc"><i class="zmdi zmdi-close"></i></a>
+            </div>
+        </div>
+    }
+</div>
+<ul class="shoping__total">
+    <li class="subtotal">Subtotal:</li>
+    <li class="total__price">S/. @(Model.Count > 0 ? Model[0].total.ToString() : "0.00")</li>
+</ul>
+
+

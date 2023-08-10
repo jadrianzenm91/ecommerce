@@ -1,0 +1,165 @@
+﻿/*Responsive Styles*/
+
+  
+/* Smartphones (portrait) ---------------- */
+@media only screen 
+and (max-width : 320px)
+{
+  
+}
+
+/* Smartphones (landscape) ---------------- */
+@media only screen 
+and (min-width : 321px)
+and (max-width : 767px)
+{
+  
+}
+
+/* Tablets (portrait) -------------------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait)
+{
+   
+}
+
+
+/* Tablets (landscape) ------------------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+{   
+   
+}
+
+/* Old Desktops and laptops ------------------ */
+@media only screen 
+and (min-width : 1025px) 
+{
+    
+}
+
+/* Desktops ------------------ */
+@media only screen 
+and (min-width : 1201px) 
+{
+    
+}
+/* Whatsapp ------------------ */
+ .float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:50%;
+	right:3px;
+	background-color:#25d366;
+	color:#FFF !important;
+	border-radius:50px;
+	text-align:center;
+    font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+    z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+
+/*body .form-control  {
+    font-size: 14px;
+    color: black;
+}*/
+
+
+.title {
+    height:inherit;
+}
+
+.frame {
+  height: 250px;
+  width: 85%;
+  background: transparent no-repeat center;
+  background-size: cover;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.card{
+    border: 1px solid lightblue;
+}
+.card-body {
+    padding:9px !important;
+    
+}
+
+.product {
+    
+    padding: 10px;
+    border-radius:10px;
+    margin-top: 10px !important;
+}
+
+.product__price li {
+    font-size: 14px !important;
+}
+.product__details {
+    font-size: 10px !important;
+}
+.modal-product {
+    padding-top : inherit !important;
+}
+.field-validation-error{
+    color: red;
+}
+label{
+    font-weight: inherit;
+    margin-top:5px;
+    font-size:13px;
+}
+.logo {
+    max-height: 95px;
+    width:auto;
+}
+table, table td{
+    font-size:13px;
+    color: black;
+}
+.form-control {
+    border-radius: inherit !important;
+    color: darkblue !important;
+    font-size: 15px;
+}
+table .form-control {
+    width:75px;
+    font-size:inherit;
+}
+
+
+.qtybutton, a {
+    cursor: pointer;
+}
+table > thead,
+table > tbody{
+    text-transform: uppercase;
+    text-align: center;
+    
+}
+.table-bordered{
+    border: none !important;
+}
+.table-bordered td, .table-bordered th
+{
+    border: 0.5px solid darkorange !important;
+    padding: 5px !important;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    color: none;
+    border-color: lightblue lightblue white !important;
+}
+.nav-tabs{
+border-bottom: 1px solid lightblue !important;
+}

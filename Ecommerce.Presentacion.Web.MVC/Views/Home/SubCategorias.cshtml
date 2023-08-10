@@ -1,0 +1,29 @@
+﻿@model List<Domain.Entities.CategoriaEN>
+@{
+    ViewBag.Title = "Sub Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+<h2 class="text-center">Tipos de Uniformes de @Model[0].V_CATEGORIA_PADRE:</h2>
+
+<div class="container" ng-controller="HomeController">
+      <div class="row">
+          @foreach (var item in Model)
+          {
+            <div class="content-product col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="@Url.Action("Productos", "Home", new { name= Request.QueryString["name"], idcategoria = item.I_CODIGO_CATEGORIA })">
+                  <div class="content-image d-none">
+                      <img src="@item.V_URL" />
+                  </div>
+                  <div class="title">@item.V_CATEGORIA</div>
+                </a>    
+            </div>    
+          }
+          
+      </div>
+    </div>
+@section Scripts {
+        <script src="~/Scripts/View/Home/MyApp.js"></script>
+}

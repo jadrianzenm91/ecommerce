@@ -1,0 +1,32 @@
+﻿@using Domain.EntitiesLogic;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+
+
+<html class="no-js" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@Constantes.EMPRESA.title</title>
+    <meta name="description" content="@Constantes.EMPRESA.descriptor">
+    <meta name="author" content="@Constantes.EMPRESA.RAZON_SOCIAL">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" href="~/Content/img/icono-logo-220x240.png">
+    <link rel="apple-touch-icon" href="~/Content/img/icono-logo-220x240.png">
+
+</head>
+@{
+    if(!string.IsNullOrEmpty(ViewBag.bodyHtml)){
+        HtmlString msg = new HtmlString(ViewBag.bodyHtml);    
+        <body>
+    @msg   
+    </body>
+        
+    }
+    
+    
+}
+    
+</html>

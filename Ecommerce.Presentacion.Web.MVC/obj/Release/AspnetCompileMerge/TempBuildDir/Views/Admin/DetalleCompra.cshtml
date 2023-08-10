@@ -1,0 +1,121 @@
+﻿@model Domain.EntitiesLogic.CarritoDetalle
+@{
+    ViewBag.Title = "Detalle de Compra";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<input type="hidden" value="@Model.carritoCompraEL.codigoCompra" id="hdnCodCompra" />
+  <div class="form-row">
+    <div class="form-group col-md-12 text-center">
+        <label class="h4 text-gray-800">Detalle de la Compra Nro @Model.carritoCompraEL.codigoCompra:</label> <br />
+        <span class="badge badge-warning">@Model.carritoCompraEL.estadoCompra</span>
+    </div>
+    <hr />
+ </div>
+<form>
+  <div class="form-row">
+
+    <div class="form-group col-md-4">
+        <label>Forma de Pago:</label>
+        <input type="text" class="bg-info text-white form-control text-uppercase" disabled="disabled" value="@Model.carritoCompraEL.formaPago">
+      </div>
+    <div class="form-group col-md-4">
+      <label>Fecha de Compra:</label>
+      <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.fechaCompra">
+    </div>
+    <div class="form-group col-md-4">
+        <label>Total (S/.):</label>
+        <input type="text" class="form-control number" disabled="disabled" value="@Model.carritoCompraEL.total">
+    </div>
+  </div>
+  <div class="form-row">
+      <div class="form-group col-md-4">
+      <label>Cliente:</label>
+      <input type="text" class="form-control text-uppercase" disabled="disabled" value="@Model.carritoCompraEL.nombres">
+    </div>
+      
+        <div class="form-group col-md-4">
+          <label>Correo de Contacto:</label>
+          <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.email">
+        </div>
+          <div class="form-group col-md-4">
+          <label>Telefono de Contacto:</label>
+          <input type="text" class="form-control" disabled="disabled" value="@Model.carritoCompraEL.celular">
+        </div>
+   </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label>Dirección de Contacto:</label>
+      <textarea class="form-control text-uppercase" disabled="disabled">@Model.carritoCompraEL.direccion</textarea>
+    </div>
+      
+  </div>
+  
+</form>
+<div class="form-row">
+    <div class="table-responsive">
+        <table class="table table-bordered ">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Precio (S/.)</th>
+                    <th>Cantidad</th>
+                    <th>Total (S/.)</th>
+                </tr>
+        
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listProductos)
+                {
+                    <tr>
+                        <td>@item.I_CODIGO_PRODUCTO</td>
+                        <td>@item.V_PRODUCTO</td>
+                        <td><input type="text" class="form-control" disabled value="@item._detalleCompraEN.precio.ToString()" /></td>
+                        <td><input type="text" class="form-control" disabled value="@item._detalleCompraEN.cantidad.ToString()" /></td>
+                        <td><input type="text" class="form-control" disabled value="@item._detalleCompraEN.total.ToString()" /></td>
+                    </tr>
+                }
+        
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<div class="d-flex justify-content-center">
+    @if (Model.carritoCompraEL.codigoEstadoCompra.Equals(Infrastructure.CrossCutting.Constantes.EstadoCompra.EnValidacion))
+    {
+        
+        <button type="button" name="btnArmar" class="btn btn-info ml-1"><span class="fas fa-shopping-basket"></span> Armar Orden</button>  
+        <button type="button" name="btnAnular" class="btn btn-danger ml-1"><span class="fas fa-user-slash"></span> Anular Orden</button>  
+        <button type="button" name="btnEditar" class="btn btn-warning ml-1"><span class="fas fa-edit"></span> Editar Orden</button>      
+    }
+    else if (Model.carritoCompraEL.codigoEstadoCompra.Equals(Infrastructure.CrossCutting.Constantes.EstadoCompra.EnValidacion))
+    {
+        
+        <button type="button" name="btnEntregaEnCamino" class="btn btn-success ml-1"><span class="fas fa-shopping-cart"></span> Entregar Orden</button>  
+        <button type="button" name="btnAnular" class="btn btn-danger ml-1"><span class="fas fa-user-slash"></span> Anular Orden</button>  
+        
+    }
+    else if (Model.carritoCompraEL.codigoEstadoCompra.Equals(Infrastructure.CrossCutting.Constantes.EstadoCompra.EnCaminoEntrega))
+    {
+        <button type="button" name="btnEntregado" class="btn btn-success ml-1"><span class="fas fa-handshake"></span> Orden Entregado</button>  
+        <button type="button" name="btnReclamo" class="btn btn-warning ml-1"><span class="fas fa-bullhorn"></span> En Reclamo</button>  
+    }
+    else if (Model.carritoCompraEL.codigoEstadoCompra.Equals(Infrastructure.CrossCutting.Constantes.EstadoCompra.EnReclamo))
+    {
+        <button type="button" name="btnAnular" class="btn btn-danger ml-1"><span class="fas fa-user-slash"></span> Anular Orden</button>  
+        <button type="button" name="btnEditar" class="btn btn-warning ml-1"><span class="fas fa-edit"></span> Editar Orden</button> 
+    }
+
+</div>
+<script src="~/Scripts/View/Admin/Index.js"></script>
+<script src="~/Scripts/View/Admin/Controller.js"></script>
+
+<script type="text/javascript">
+    //$('.number').number(true, 2);
+    ns('ns.admin.url')
+    ns.admin.url.setArmarOrden = '@Url.Action("setArmarOrden","Admin")';
+    ns.admin.url.setEntregaEnCamino = '@Url.Action("setEntregaEnCamino","Admin")'; 
+    ns.admin.url.setEntregarOrden = '@Url.Action("setEntregarOrden","Admin")'; 
+    ns.admin.url.setAnularOrden = '@Url.Action("setAnularOrden","Admin")'; 
+</script>

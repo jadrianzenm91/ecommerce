@@ -1,0 +1,35 @@
+﻿<div>
+    <div class="row">
+        <input type="text" placeholder="Ingresar Correo o Número del Contacto..." />
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha de Pedido</th>
+                    <th>Total</th>
+                    <th>Dirección de Entrega</th>
+                    <th>Contacto</th>
+                    <th>Celular Contacto</th>
+                    <th>Correo Contacto</th>
+                    <th>Forma de Pago</th>
+                    <th>Estado Pedido</th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="item in pedidos">
+                    <td>{{item.fechaPedido}}</td>
+		            <td>S/.{{item.total| number : 2}}</td>
+		            <td>{{item.direccion}}</td>
+                   <td>{{item.contacto}}</td>
+                   <td>{{item.celular}}</td>
+                   <td>{{item.email}}</td>
+                   <td>{{item.formaPago}}</td>
+                   <td>{{item.estado}}</td>
+	            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

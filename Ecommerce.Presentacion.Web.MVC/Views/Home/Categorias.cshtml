@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+<h2 class="text-center">Uniformes para Personal FAP</h2>
+
+<div class="container"  ng-controller="HomeController">
+      <div class="row">
+          @foreach (var item in ViewData["categorias"] as List<Domain.Entities.CategoriaEN>)
+          {
+            <div class="content-product col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="@Url.Action("SubCategorias", "Home", new { name = Request.QueryString["name"], idcategoria = item.I_CODIGO_CATEGORIA })">
+                  <div class="content-image">
+                      <img src="@item.V_URL">
+                  </div>
+                  <div class="title text-center">@item.V_CATEGORIA<br /></div>
+                </a>    
+              </div>    
+          }
+          
+      </div>
+    </div>
+
+
+@section Scripts {
+        <script src="~/Scripts/View/Home/MyApp.js"></script>
+}

@@ -1,0 +1,9 @@
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\bin\Debug\Domain.Entities.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\bin\Debug\Domain.Entities.pdb
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\bin\Debug\Infrastructure.CrossCutting.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\bin\Debug\Infrastructure.CrossCutting.pdb
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\obj\Debug\Domain.Entities.csproj.CoreCompileInputs.cache
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\obj\Debug\Domain.Entities.csproj.CopyComplete
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\obj\Debug\Domain.Entities.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\obj\Debug\Domain.Entities.pdb
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Domain.Entities\obj\Debug\Domain.Entities.csproj.AssemblyReference.cache

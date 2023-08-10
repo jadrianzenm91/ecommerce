@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Pago de Factura";
+    Layout = "~/Views/Shared/_Admin.cshtml"; 
+}
+<!-- Incluyendo Culqi Checkout -->
+<script src="https://checkout.culqi.com/js/v3"></script>
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+<div class="modal-preload d-none"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i>Procesando</div></div></div>
+
+    <script type="text/javascript">
+
+        
+        ////es invocado desde base.Event.btnCulqiClick de Controller.js
+        function culqi() {
+            //Hasta aquí no se ha procesado ningun pago ni cargo, solo se ha generado el token.
+            console.log(Culqi);
+            if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+                var token = Culqi.token.id;
+                var email = Culqi.token.email.replace(".", "|");
+                debugger;
+                window.location.href = '/admin/postpayment/procesarPago/' + '@ViewBag.idplantienda' + '/' + token + '/' + email;
+
+            } else { // ¡Hubo algún problema!
+                // Mostramos JSON de objeto error en consola
+                console.log(Culqi.error);
+                alerta('danger', Culqi.error.user_message);
+            }
+        };
+
+        $(document).ready(function () {
+
+            Culqi.publicKey = '@ViewBag.pk';
+                Culqi.settings({
+                    title: 'CULQI CHECKOUT',
+                    currency: 'PEN',
+                    description: '@ViewBag.description',
+                    amount: '@ViewBag.monto'
+                });
+                Culqi.options({
+                    modal: false,
+                    lang: 'auto',
+                    style: {
+                        logo: 'https://static.culqi.com/v2/v2/static/img/logo.png',
+                        maincolor: '#0ec1c1',
+                        buttontext: '#ffffff',
+                        maintext: '#4A4A4A',
+                        desctext: '#4A4A4A'
+
+                    }
+                });
+                Culqi.open();
+
+        });
+        
+</script>
+
+

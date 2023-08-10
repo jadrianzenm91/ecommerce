@@ -1,0 +1,55 @@
+﻿@model Domain.EntitiesLogic.CarritoCompraTemporalEL
+
+<h1>Entrega</h1>
+<a href="#">@ViewBag.Pedidos</a>
+<div>
+    Entrega sujeta a cobertura en dos días útiles como máximo.
+</div>
+<div class="row">
+    <div class="col-lg-9 col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Orden</th>
+                        <th>Producto</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 0;
+            
+                        foreach (var item in Model.listDetalleProducto)
+                        {
+                            <tr>
+                                <td>@(row+1)</td>
+                                <td>@item.</td>
+                                <td>S/.@item.precio</td>
+                                <td> <div class="form-group">
+                                    <div class="input-group col-sm-4">
+                                      <div class="input-group-addon" ng-click="setCarShopping(@item)">+</div>
+                                      <input type="text" class="form-control text-center" value="@item.cantidad">
+                                      <div class="input-group-addon">-</div>
+                                    </div>
+                                  </div></td>
+                                <td>S/.@(item.precio*item.cantidad)</td>
+                            </tr>    
+                            row++;
+                        }
+                        <tr>
+                            <td colspan="5"><a>Agregar más productos</a></td>
+                        </tr>
+                    }
+            
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div> Total: S/.{{getTotal() | number : 2}}</div>
+    </div>
+
+</div>

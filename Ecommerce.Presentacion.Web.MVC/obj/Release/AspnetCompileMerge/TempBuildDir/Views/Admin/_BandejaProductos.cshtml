@@ -1,0 +1,77 @@
+﻿
+@model Ecommerce.Presentacion.Web.MVC.Models.Dashboard
+@{
+    ViewBag.Title = "Bandeja de Productos";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h1 class="h3 mb-2 text-gray-800">Bandeja de Productos</h1>
+<p class="mb-4">Gestiona tus productos, actualizando nombre/precio/descripción/estado. Asimismo; agrega nuevos productos según tu plan contratado.</p>
+ <div>
+    <div class="form-group">
+        <button class="btn btn-primary" name="btnNuevoProd"><i class="fas fa-plus"></i> Nuevo Producto</button>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        
+       
+        <div class="table-responsive">
+            <table class="table table-bordered dataTable" width="100%" cellspacing="0" name="tblProductos">
+                <thead>
+                    <tr>
+                    <th>Nro</th>
+                    <th>Producto</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Fecha Creación</th>
+                    <th>Última Modificación</th>
+                    <th>Categoria</th>
+                    <th></th>
+                    <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                        
+                        @{
+                            int i = 0;
+                            foreach (var item in Model.ListaProductos)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.V_PRODUCTO</td>
+                                    <td>@item.I_STOCK</td>
+                                    <td>S/. @item.N_PRECIO.ToString("0.00")</td>
+                                    <td>@item.V_DATE_CREATE</td>
+                                    <td>@item.V_DATE_UPDATE</td>
+                                    @*<td>@(Convert.ToBoolean(item.B_ACTIVE)? "ACTIVO" : "INACTIVO")</td>*@
+                                    <td>@item._CategoriaEN.V_CATEGORIA</td>
+                                
+                                    <td class="text-center"><a style="font-size: 23px;" data-id="@item.V_CODIGO_PRODUCTO" name="getProducto" ><i class="fas fa-edit"></i></a></td>
+                                    <td class="text-center">
+                                        @if (Convert.ToBoolean(item.B_ACTIVE)) 
+                                        {
+                                            <a style="font-size: 23px;" data-id="@item.V_CODIGO_PRODUCTO" data-toggle="tooltip" data-placement="top" title="PRODUCTO ACTIVO" name="offProducto" ><i class="fas fa-toggle-on"></i></a> 
+                                        } else{
+                                            <a style="font-size: 23px;" data-id="@item.V_CODIGO_PRODUCTO" data-toggle="tooltip" data-placement="top" title="PRODUCTO INACTIVO" name="onProducto" ><i class="fas fa-toggle-off"></i></a>
+                                        }
+                                    
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+ <script type="text/javascript">
+     $('[data-toggle="tooltip"]').tooltip();
+     $('[name="tblProductos"]').DataTable();
+</script>
+
+

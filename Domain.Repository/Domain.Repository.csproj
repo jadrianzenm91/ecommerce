@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{40D26273-46F7-41D5-91E4-B4E67AB488A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Domain.Repository</RootNamespace>
+    <AssemblyName>Domain.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Librerias\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Librerias\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\Librerias\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Librerias\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\Librerias\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Librerias\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\Librerias\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\Librerias\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Caracteristica\ICaracteristicaRepository.cs" />
+    <Compile Include="Caracteristica\CaracteristicaRepository.cs" />
+    <Compile Include="CarritoCompra\CarritoCompraRepository.cs" />
+    <Compile Include="CarritoCompra\ICarritoCompraRepository.cs" />
+    <Compile Include="Categoria\ICategoriaRepository.cs" />
+    <Compile Include="Categoria\CategoriaRepository.cs" />
+    <Compile Include="CuponDescuento\ICuponDescuentoRepository.cs" />
+    <Compile Include="CuponDescuento\CuponDescuentoRepository.cs" />
+    <Compile Include="EmailMarketing\DocumentoHtml\DocumentoHtmlRepository.cs" />
+    <Compile Include="EmailMarketing\DocumentoHtml\IDocumentoHtmlRepository.cs" />
+    <Compile Include="FormaPago\IFormaPagoRepository.cs" />
+    <Compile Include="FormaPago\FormaPagoRepository.cs" />
+    <Compile Include="ImagenProducto\IImagenProductoRepository.cs" />
+    <Compile Include="ImagenProducto\ImagenProductoRepository.cs" />
+    <Compile Include="ParametroValor\IParametroValorRepository.cs" />
+    <Compile Include="ParametroValor\ParametroValorRepository.cs" />
+    <Compile Include="Perfil\IPerfilRepository.cs" />
+    <Compile Include="Perfil\PerfilRepository.cs" />
+    <Compile Include="Planes\IPlanesRepository.cs" />
+    <Compile Include="Planes\PlanesRepository.cs" />
+    <Compile Include="PlanTienda\IPlanTiendaRepository.cs" />
+    <Compile Include="PlanTienda\PlanTiendaRepository.cs" />
+    <Compile Include="ProductoCaracteristica\IProductoCaracteristicaRepository.cs" />
+    <Compile Include="ProductoCaracteristica\ProductoCaracteristicaRepository.cs" />
+    <Compile Include="Producto\IProductoRepository.cs" />
+    <Compile Include="Producto\ProductoRepository.cs" />
+    <Compile Include="Promocion\IPromocionRepository.cs" />
+    <Compile Include="Promocion\PromocionRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tienda\ITiendaRepository.cs" />
+    <Compile Include="Tienda\TiendaRepository.cs" />
+    <Compile Include="Usuario\IUsuarioRepository.cs" />
+    <Compile Include="Usuario\UsuarioRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.EntitiesLogic\Domain.EntitiesLogic.csproj">
+      <Project>{d1c2ceb9-c1de-422e-a7ae-21a377a18e65}</Project>
+      <Name>Domain.EntitiesLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj">
+      <Project>{71ad576c-7af3-4f1a-affb-9ccf02b2c85f}</Project>
+      <Name>Domain.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.CrossCutting\Infrastructure.CrossCutting.csproj">
+      <Project>{98188880-b4a5-4496-9a7c-263c5ded644a}</Project>
+      <Name>Infrastructure.CrossCutting</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

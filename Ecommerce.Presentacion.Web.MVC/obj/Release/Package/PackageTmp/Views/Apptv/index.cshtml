@@ -1,0 +1,93 @@
+﻿@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+@{
+    ViewBag.Title = "ListaProductos";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+
+    IManagerApplication _ManagerApplication = new ManagerApplication();
+    
+    var listaCategorias = _ManagerApplication.getCategorias(new CategoriaEN()
+    {
+        I_CODIGO_TIENDA = ViewBag.idtienda
+    }).Where(x => x.B_ACTIVE == true);
+
+}
+
+
+
+<div class="pepe">
+
+    <section class="htc__product__area shop__page ptb--50 bg__white">
+        <div class="container">
+            <div class="htc__product__container">
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <div class="filter__menu__container">
+
+                            <div class="product__menu">
+                                @if (String.IsNullOrEmpty(ViewBag.text))
+                                {
+                                    <button data-filter="*" class="is-checked">Todos</button>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("index", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })">Todos</a>
+                                }
+                                @foreach (var item in listaCategorias)
+                                {
+                                    <button data-filter=".@item.I_CODIGO_CATEGORIA">@item.V_CATEGORIA</button>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row product__list">
+
+                    <!-- Start Single Product -->
+                    @{
+                        foreach (var item in ViewBag.productos as List<ProductoEN>)
+                        {
+                            <div class="col-md-3 single__pro col-lg-3 col-md-4 @item._CategoriaEN.I_CODIGO_CATEGORIA col-sm-12">
+                                <div class="product foo">
+                                    <div class="product__inner">
+                                        <div class="pro__thumb">
+                                            <a href="@Url.Action("productodetalle", new { name = ViewBag.name, id = item.V_CODIGO_PRODUCTO, token = ViewBag.token })">
+                                                <img src="@item.V_URL_PRINCIPAL" alt="@item.V_CODIGO_PRODUCTO">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="product__details">
+                                        <h2><a href="product-details.html" class="text-capitalize">@item.V_PRODUCTO</a></h2>
+                                        <ul class="product__price">
+                                            <li class="old__price">S/ @(item.N_PRECIO + 6)</li>
+                                            <li class="new__price">S/ @item.N_PRECIO (Oferta)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+</div>
+
+
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mainmenu__area').css('background', '');
+    });
+</script>
+}

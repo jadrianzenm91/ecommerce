@@ -1,0 +1,157 @@
+﻿@model Domain.Entities.RequestUsuarioDatos
+@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+@{
+    ViewBag.Title = "Mis datos";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+}
+
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+
+<div class="modal-preload hidden"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i>Procesando</div></div></div>
+<style>
+    
+
+    .card-header {
+        background: inherit;
+        border: initial;
+    }
+
+    .nav-tabs {
+        border-bottom: none;
+    }
+</style>
+<div>
+   
+       
+        <section class="our-checkout-area ptb--40 bg__white">
+            <div class="container">
+                @if (!String.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="alert alert-@ViewBag.type alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @ViewBag.Message
+                    </div>
+                }
+                
+                <div class="row">
+@using (Html.BeginForm("updateDatosUsuario", "Apptv", 
+    new { name= Request.QueryString["name"], token = Request.QueryString["token"]},
+    FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+                    <div class="co-lg-6 col-md-12 col-sm-12 ">
+                        <div class="section-title-3 mb-3"><span class="ti-user"></span> Mis Datos</div><br />
+                        <div class="panel-group" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            1. Mis Datos
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-3">
+                                                <label>Usuario:</label>
+                                                <input type="email" class="form-control text-uppercase" placeholder="Email" name="email" value="@(User.Identity.Name)" disabled="disabled">
+                                            </div>
+                                        </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label>Nombres:*</label>
+                                                    @Html.TextBoxFor(m => m.nombres, new { @class = "form-control text-uppercase", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.nombres)
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label>Apellidos:*</label>
+                                                    @Html.TextBoxFor(m => m.apellidos, new { @class = "form-control text-uppercase", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.apellidos)
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label>DNI:*</label>
+                                                    @Html.TextBoxFor(m => m.dni, new { @class = "form-control text-uppercase", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.dni)
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label>Celular:*</label>
+                                                    @Html.TextBoxFor(m => m.celular, new { @class = "form-control text-uppercase", @required = "required", @placeholder = "Ejm:+51987654321" })
+                                                    @Html.ValidationMessageFor(model => model.celular)
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            2. Dirección de Domicilio
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <div class="form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <label>Departamento</label>
+                                                @Html.TextBoxFor(m => m.dpto, new { @class = "form-control text-uppercase" })
+                                                @Html.ValidationMessageFor(model => model.dpto)
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Provincia</label>
+                                                @Html.TextBoxFor(m => m.prov, new { @class = "form-control text-uppercase" })
+                                                @Html.ValidationMessageFor(model => model.prov)
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Distrito</label>
+                                                @Html.TextBoxFor(m => m.distrito, new { @class = "form-control text-uppercase" })
+                                                @Html.ValidationMessageFor(model => model.distrito)
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-1">
+                                                <label>Dirección:</label>
+                                                @Html.TextAreaFor(m => m.direccion, new { @class = "form-control text-uppercase" })
+                                                @Html.ValidationMessageFor(model => model.direccion)
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="btnSaveDatos">Guardar <span class="ti-save"></span></button>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+} 
+                </div>
+                
+            </div>
+        </section>
+        <!-- End Checkout Area -->
+
+   
+</div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+$(document).ready(function () {
+        $('#header').addClass('header--3 bg__white');
+        $('.slider__container').remove();
+    });
+</script>
+}

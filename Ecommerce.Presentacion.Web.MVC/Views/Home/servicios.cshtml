@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "servicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <!-- content begin -->
+<div class="no-bottom no-top" id="content">
+    <div id="top"></div>
+
+    <!-- section begin -->
+    <section id="subheader" data-bgimage="url(/Content/theme3/images/background/5.png) bottom">
+        <div class="center-y relative text-center" data-scroll-speed="4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form action='blank.php' class="row" id='form_subscribe' method="post" name="myForm">
+                            <div class="col text-center">
+                                <div class="spacer-single"></div>
+                                <h1 style="color:Black;">Servicios</h1>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section close -->
+
+
+    <section id="section-features" class="no-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="owl-features" class="owl-carousel owl-theme">
+
+                    <div class="feature-box-type-2">
+                        <a href="@Url.Action("index","TiendaVirtual")" style="color:white !important;">
+                       <i class="fa fa-line-chart"></i>
+                        <h4>Tienda Virtual</h4>
+                        <p>Gestiona tus productos, ventas, pedidos y delivery en una sola plataforma. Enlace con un click a Whatsapp, Messenger de Facebook y mucho más.</p>
+                        </a>
+                    </div>
+
+
+                    <div class="feature-box-type-2">
+                        <a href="#" style="color:white !important;">
+                        <i class="fa fa-laptop"></i>
+                        <h4>Diseño Web</h4>
+                        <p>Crea tu página web ideal con un Dominio Personalizado. Selecciona el diseño que te guste y nosotros nos encargamos del resto.</p>
+                        </a>
+                    </div>
+
+                    
+                    <div class="feature-box-type-2">
+                        <a href="#" style="color:white !important;">
+                        <i class="fa fa-hdd-o"></i>
+                        <h4>Dominio y Hosting</h4>
+                        <p>Elige el dominio que quieras para tu pagina web (Sólo Perú) y el Alojamiento adecuado en nuestros diferentes planes.</p>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+     
+        
+    </section>
+  
+   
+
+</div>
+<!-- content close -->
+ @section Scripts {
+<script>
+    
+    $(document).ready(function () {
+        $('header').addClass('header-light');
+    });
+</script>
+}

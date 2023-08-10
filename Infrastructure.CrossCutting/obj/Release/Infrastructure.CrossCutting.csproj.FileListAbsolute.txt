@@ -1,0 +1,10 @@
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\bin\Release\Infrastructure.CrossCutting.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\bin\Release\Infrastructure.CrossCutting.pdb
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\bin\Release\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\bin\Release\Microsoft.WindowsAzure.Storage.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\bin\Release\Newtonsoft.Json.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\obj\Release\Infrastructure.CrossCutting.csprojAssemblyReference.cache
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\obj\Release\Infrastructure.CrossCutting.csproj.CoreCompileInputs.cache
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\obj\Release\Infrastructure.CrossCutting.csproj.CopyComplete
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\obj\Release\Infrastructure.CrossCutting.dll
+C:\Users\pc\Documents\Visual Studio 2019\jadrianzenm91.tfs\Ecommerce.Presentacion.Web.MVC\Infrastructure.CrossCutting\obj\Release\Infrastructure.CrossCutting.pdb

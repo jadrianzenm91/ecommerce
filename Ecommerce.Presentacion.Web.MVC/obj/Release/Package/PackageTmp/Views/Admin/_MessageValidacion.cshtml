@@ -1,0 +1,11 @@
+﻿@if (TempData[Infrastructure.CrossCutting.Constantes.Mensajes.Message] != null)
+{
+    var response = (Domain.EntitiesLogic.ResponseEL) TempData[Infrastructure.CrossCutting.Constantes.Mensajes.Message];
+    
+    <div class="alert alert-@response.type">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>@response.type! </strong><br /><span>@response.message</span>
+    </div>
+}

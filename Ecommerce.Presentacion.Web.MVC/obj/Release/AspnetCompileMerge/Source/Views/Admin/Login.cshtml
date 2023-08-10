@@ -1,0 +1,162 @@
+﻿@model Models.LoginModel
+@using Domain.Entities;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+
+@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@Constantes.EMPRESA.descriptor">
+  <meta name="author" content="@Constantes.EMPRESA.SiglaEmpresa">
+  <title>@Constantes.EMPRESA.titleAdmin</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="~/Content/admin/all.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template-->
+  <link href="~/Content/admin/sb-admin.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="~/Content/img/icono-logo.png">
+</head>
+
+<body style="background-color: #21D4FD;
+background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);">
+
+    <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-lg-6">
+
+        <div style="color:white;">
+          <div class="card-body p-0" style="background: none;">
+            <!-- Nested Row within Card Body -->
+            <div>
+              <div style="margin-left: auto;margin-right: auto;">
+                <div class="m-2 mt-5">
+                  <div class="text-center">
+                    <label class="h4 mb-2">Panel de Administración</label>
+                      <br />
+                    <label class="h6">Tienda Virtual</label>
+                  </div>
+                    @Html.Partial("_MessageValidacion")
+
+                    
+                    @if (!string.IsNullOrEmpty(ViewBag.ResetPasswordMessage))
+                    {
+                        <div class="alert alert-@ViewBag.ResetPasswordType alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @ViewBag.ResetPasswordMessage
+                        </div>
+                    }
+                   @using (Html.BeginForm("Login", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, 
+                       FormMethod.Post, htmlAttributes: new { @class = "user" }))
+                   {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" style="border:none;" name="UserName" aria-describedby="emailHelp" placeholder="Email" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-user" style="border:none;" name="Password" placeholder="Password" required="required">
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" name="RememberMe">
+                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                          
+                      </div>
+                    </div>
+                       <input type="submit" value="Ingresar" class="btn btn-primary btn-user btn-block" />
+                       <br />
+    <div class="text-center">
+        <a data-toggle="modal" style="color:white;" data-target="#forgetPassword" href="#" class="small">Olvidó Contraseña?</a>
+    </div>
+                    <div class="btn btn-google btn-user btn-block firebase d-none" data-social="google">
+                        <i class="fab fa-google fa-fw"></i> Login con Google
+                    </div>
+                    <div class="btn btn-facebook btn-user btn-block d-none firebase" data-social="facebook">
+                        <i class="fab fa-facebook-f fa-fw"></i> Login con Facebook
+                    </div>
+                   }
+                  <hr>
+
+                  <div class="text-center">
+                    <a class="small" style="color:white;" href="@Url.Action("register","TiendaVirtual")">Registrarme</a>
+                  </div>
+                    <br />
+                  <div class="text-center">
+                    <a class="mb-2 small">@Constantes.EMPRESA.piePagina</a><br />
+                      <img src="~/Content/img/icono-logo-220x240.png" style="height: 90px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+    <!-- Modal ForgotPassword -->
+    <div class="modal fade" tabindex="-1" id="forgetPassword">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recuperar Contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+               
+                    @using (Html.BeginForm("forgetPassword", "Admin",
+                        FormMethod.Post, htmlAttributes: new { @class = "login" }))
+                    {
+                        @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese su Email" name="email" required="required">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+                    }
+   
+               
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="~/Scripts/jquery.js"></script>
+  <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/Codemaleon/ns.js"></script>
+    <script type="text/javascript" src="~/Scripts/View/Login/Index.js"></script>
+    <script type="text/javascript" src="~/Scripts/View/Login/Controller.js"></script>
+    @*<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+    <script src="~/Scripts/View/Login/firebase-Init.js"></script>*@
+    <script type="text/javascript">
+        ns('Web.Route.UrlApi')
+        Web.Route.Url.home = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/home';
+        Web.Route.UrlApi.UsuarioProviderAuth = '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/api/AuthProvider'
+    </script>
+</body>
+
+</html>
+

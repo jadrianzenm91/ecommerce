@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Server=tcp:sisadri.database.windows.net,1433;Initial Catalog=ecommerce;Persist Security Info=False;User ID=sisadri;Password=J0n4th4n;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\pc\\Documents\\Visual\ Studio\ 2019\\jadrianzenm91\.tfs\\Ecommerce\.Presentacion\.Web\.MVC\\Ecommerce\.Presentacion\.Web\.MVC\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

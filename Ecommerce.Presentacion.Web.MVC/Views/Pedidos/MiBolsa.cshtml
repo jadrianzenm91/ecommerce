@@ -1,0 +1,145 @@
+﻿@model List<Domain.Entities.DetalleCompraTempEN>
+    @{
+        ViewBag.Title = "Mi Bolsa de Compra";
+        Layout = "~/Views/Shared/_Client.cshtml";
+    }
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+
+<div class="modal-preload d-none"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i></div></div></div>
+
+
+    <div ng-controller="ProductosController">
+        <!-- cart-main-area start -->
+        <div class="cart-main-area ptb--80 bg__white">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                        <h2 class="section-title-3"> <span class="ti-shopping-cart"></span> Mi Bolsa de Compra</h2>
+                        <br />
+                        <form action="#">
+                            <div class="table-content table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">imagen</th>
+                                            <th class="product-name">producto</th>
+                                            <th class="product-price">precio</th>
+                                            <th class="product-quantity">cantidad</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-remove"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="#"><img src="@item.V_URL_PRINCIPAL" alt="@item.V_PRODUCTO" /></a></td>
+                                                <td class="product-name"><a href="#">@item.V_PRODUCTO</a></td>
+                                                <td class="product-price"><span class="amount">S/ @item.N_PRECIO</span></td>
+                                                <td class="product-quantity">
+                                                    <input class="cart-plus-minus-box" type="number" name="qtybutton" value="@item.cant" data-id="@item.idprodEnc" data-idt="@item.idEnc" />
+                                                    
+                                                </td>
+                                                <td class="product-subtotal">S/ @Infraestruture.CrossCutting.DataConvert.ToDecimal(item.cant * item.N_PRECIO)</td>
+                                                <td><div name="quitProd" data-id="@item.idprodEnc" data-idt="@item.idEnc"><a style="cursor:pointer; color:darkred;">Eliminar</a></div></td>
+                                            </tr>
+                                        }
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="buttons-cart">
+                                        <a href="@Url.Action("Index","Home", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })"><span class="ti-shopping-cart"></span> Seguir Comprando</a>
+                                    </div>
+                                    <div class="coupon">
+                                        <h3>Cupon</h3>
+                                        <p>Ingresa tu codigo de cupon si tuvieras uno.</p>
+                                        <input type="text" placeholder="Codigo del Cupón" />
+                                        <div class="buttons-cart">
+                                            <a href="#">Aplicar Cupón</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 ">
+                                    <div class="cart_totals">
+                                        
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <th colspan="2">
+                                                        <h2>Totales</h2>
+                                                    </th>
+                                                </tr>
+                                                <tr class="cart-subtotal">
+                                                    <th>Subtotal</th>
+                                                    <td><span class="amount">S/ @(ViewBag.venta)</span></td>
+                                                </tr>
+                                                <tr class="shipping">
+                                                    <th>IGV (18%)</th>
+                                                    <td>
+                                                       <span class="amount">S/ @(ViewBag.igv)</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <th>Total</th>
+                                                    <td>
+                                                        <strong><span class="amount">S/ @ViewBag.total</span></strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="wc-proceed-to-checkout">
+                                                            <a href="@Url.Action("checkout", "Pedidos", new { name = Request.QueryString["name"], token = Request.QueryString["token"] })">Procesar Pago</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+        <!-- cart-main-area end -->
+
+
+    </div>
+
+
+    @section Scripts {
+    <script type="text/javascript">
+
+        $('[name=qtybutton]').on('change', function () {
+            var newVal = $(this).val();
+
+            var obj = { idEnc: $(this).data('idt'), token: '@Request.QueryString["token"]', idprodEnc: $(this).data('id'), cant: newVal };
+            
+            $.ajax({
+                url: Web.Route.UrlApi.detalleCompra,
+                "type": 'POST',
+                "data": obj,
+                success: function (response) {
+                    console.log(response);
+                    if (!response.success) {
+                        alerta('danger', 'Ups! Algo salió mal.')
+                    } else {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    </script>
+
+    }
+

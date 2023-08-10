@@ -1,0 +1,78 @@
+﻿@using Infrastructure.CrossCutting;
+@model List<Domain.Entities.PlanTiendaEN>
+@{
+    ViewBag.Title = "Periodos de Facturación";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    
+}
+<!-- Incluyendo Culqi Checkout -->
+<script src="https://checkout.culqi.com/js/v3"></script>
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+<div class="modal-preload d-none"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i>Procesando</div></div></div>
+
+@Html.Partial("_MessageValidacion")
+
+
+<h1 class="h3 mb-2 text-gray-800">Mi Facturación</h1>
+<p class="mb-4">Plan activo e historial de periodos facturados.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("datostienda", "Admin", new { id = Request.QueryString["id"] })">Datos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("periodosfacturacion", "Admin", new { id = Request.QueryString["id"] })">Mi Facturación</a>
+            </li>
+        </ul>
+       
+                
+        <br />
+       
+       
+        <br />
+        <div class="table-responsive">
+            <table name="tblPeriodosFacturacion" class="table table-bordered dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>Plan</th>
+                        <th>Monto</th>
+                        <th>Periodo Desde</th>
+                        <th>Periodo Hasta</th>
+                        <th>Fecha Pago</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var item in Model)
+                   {
+                       <tr>
+                           <td>@item.idplantienda</td>
+                           <td>@item.nombreplan</td>
+                           <td>@item.montoplan</td>
+                           <td>@item.periodoinifac.ToShortDateString()</td>
+                           <td>@item.periodofinfac.ToShortDateString()</td>
+                           <td>@(item.montoplan > 0 ? item.fechapago : item.periodoinifac)</td>
+                           <td>@(String.IsNullOrEmpty(item.fechapago.ToString()) && item.montoplan > 0 ?
+                           (item.periodofinfac < DateTime.Now ? "Vencido" : "Pendiente") : "Pagado")</td>
+                           <td>@if (String.IsNullOrEmpty(item.fechapago.ToString()) && item.montoplan > 0)
+                               {
+                               <a href="/admin/prepayment/pagarfactura/@Encrypting.EncryptKey(item.idplantienda.ToString())" class="btn btn-success"><i class="fas fa-credit-card"></i> Pagar</a>
+                               }
+                           </td>
+                       </tr>
+                   }
+                </tbody>
+            </table>
+        </div>      
+    </div>
+</div>
+<script type="text/javascript">
+    
+    $('[name="tblPeriodosFacturacion"]').DataTable();
+   
+
+</script>

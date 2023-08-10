@@ -1,0 +1,64 @@
+﻿@model List<Domain.Entities.CategoriaEN>
+@using Infrastructure.CrossCutting;
+@{
+    ViewBag.Title = "Categoria";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<label class="h3 mb-2 text-gray-800">Categorias</label>
+<p class="mb-4">Gestiona las categorías de tus productos.</p>
+
+ <div>
+    <div class="form-group">
+        <a class="btn btn-primary" href="@(Url.Action("regcategoria", "Admin"))" name="btnNuevo"><i class="fas fa-plus"></i> Agregar</a>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+            <table name="tblCategorias" class="table table-bordered dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Categoria Padre</th>
+                        <th>Tienda</th>
+                        <th>F. Creación</th>
+                        <th>F. Actualización</th>
+                        <th>Estado Actual</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.V_CATEGORIA</td>
+                            <td>@item.V_CATEGORIA_PADRE</td>
+                            <td>@item.V_TIENDA</td>
+                            <td>@item.D_DATE_CREATE</td>
+                            <td>@item.D_DATE_UPDATE</td>
+                            <td>@item.B_ACTIVE</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Acción
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class="dropdown-item" href="@Url.Action("editcategoria", "Admin", new { idcategoria = Encrypting.EncryptKey(item.I_CODIGO_CATEGORIA.ToString()) })">Editar</a>
+                                        <a class="dropdown-item" href="@Url.Action("regsubcategoria", "Admin", new { idcategoria = Encrypting.EncryptKey(item.I_CODIGO_CATEGORIA.ToString()) })">Add SubCategoria</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+          </div>      
+    </div>
+</div>
+<script type="text/javascript">
+    $('.number').number(true, 2);
+    $('[name="tblCategorias"]').DataTable();
+</script>

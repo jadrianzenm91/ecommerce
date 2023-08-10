@@ -1,0 +1,63 @@
+﻿@model Domain.Entities.TiendaEN
+<div class="modal fade" id="mdlLogin" tabindex="-1" role="dialog">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+            <div class="modal-header bg-gradient-primary text-white text-center"><div class="h4">Bienvenido a @Model.V_TIENDA!</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+          <div class="modal-body">
+             <div class="text-center">
+                   </div>
+                       @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, htmlAttributes: new { @class = "user" }))
+                       {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-user" name="UserName" aria-describedby="emailHelp" placeholder="Usuario" required="required">
+                        </div>
+                        <div class="form-group">
+                          <input type="password" class="form-control form-control-user" name="Password" placeholder="Password" required="required">
+                        </div>
+                        <div class="form-group">
+                          <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" name="RememberMe">
+                            <label class="custom-control-label" for="customCheck">Recordar</label>
+                          </div>
+                        </div>
+                           <input type="submit" value="Ingresar" class="btn btn-primary btn-user btn-block" />
+                        <hr>
+                       
+                    }
+                   @using (Html.BeginForm("Index", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, htmlAttributes: new { id = "formFirebase" }))
+                       {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                           <div class="btn btn-google btn-user btn-block firebase" data-social="google">
+                              <i class="fab fa-google fa-fw"></i> Login con Google
+                            </div>
+                            <div class="btn btn-facebook btn-user d-none btn-block firebase" data-social="facebook">
+                              <i class="fab fa-facebook-f fa-fw"></i> Login con Facebook
+                            </div>
+                        }
+                      <hr>
+                      <div class="text-center">
+                        <a class="small" href="#">Recordar Contraseña?</a>
+                      </div>
+                      <div class="text-center">
+                        <a class="small" href="@Url.Action("Register","Account")">Registrarse!</a>
+                      </div>
+          </div>
+          </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+@section Scripts {
+    
+    <script type="text/javascript">
+        ns('Web.Home.Actions')
+        Web.Home.Actions.AgregarCarrito = '@Url.Action("AgregarCarrito","Compra")'
+        
+
+    </script>
+}

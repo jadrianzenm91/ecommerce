@@ -1,0 +1,191 @@
+﻿@model Domain.EntitiesLogic.ProductoEL
+@{
+    ViewBag.Title = "Detalle Producto";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+}
+<link href="~/Content/loading.css" rel="stylesheet" type="text/css" />
+
+<div class="modal-preload hidden"><div class="circles"><div class="circle"></div><div class="mainLogo"><i class="preloadEc"></i></div></div></div>
+<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(/Content/uniqlo/images/bg/fondo-1920x290.jpg) no-repeat scroll center center / cover ;">
+    <div class="ht__bradcaump__wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Producto Detalle</h2>
+                        <nav class="bradcaump-inner">
+                            <a class="breadcrumb-item" href="@Url.Action("index", "Apptv", new { name = ViewBag.name, token = ViewBag.token })">Home</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb-item active">Producto Detalle</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="htc__product__details pt--120 pb--100 bg__white">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-12 col-lg-6 col-sm-12">
+                <div class="product__details__container">
+                    <!-- Start Small images -->
+                    <ul class="nav product__small__images" role="tablist">
+                        @{
+                            if (Model._listImagenProductoEN != null && Model._listProductoCaracteristicaEL.Count() > 0)
+                            {
+                                for (int i = 0; i < Model._listImagenProductoEN.Count(); i++)
+                                {
+                                    var item = Model._listImagenProductoEN[i];
+                                    <li role="presentation" class="pot-small-img @(i==0? "active" : "")">
+                                        <a href="#img-tab-@i" role="tab" data-toggle="tab">
+                                            <img style="max-height:140px; max-width:120px;" src="@item.V_URL" alt="@item.I_CODIGO_PRODUCTO">
+                                        </a>
+                                    </li>
+                                }
+
+                            }
+                        }
+                    </ul>
+                    <!-- End Small images -->
+                    <div class="product__big__images">
+                        <div class="portfolio-full-image tab-content">
+                            @{
+                                if (Model._listImagenProductoEN != null && Model._listProductoCaracteristicaEL.Count() > 0)
+                                {
+                                    for (int i = 0; i < Model._listImagenProductoEN.Count(); i++)
+                                    {
+                                        var item = Model._listImagenProductoEN[i];
+                                        <div role="tabpanel" class="tab-pane @(i==0? "active" : "")" id="img-tab-@i">
+                                            <img src="@item.V_URL" alt="full-image" style="max-height:590px; min-width">
+                                        </div>
+                                    }
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6 col-sm-12 smt-30 xmt-30">
+                <div class="htc__product__details__inner">
+                    <div class="pro__detl__title">
+                        <h2>@Model.V_PRODUCTO</h2>
+                    </div>
+                    <div class="pro__dtl__rating">
+                        <ul class="pro__rating">
+                            <li><span class="ti-star"></span></li>
+                            <li><span class="ti-star"></span></li>
+                            <li><span class="ti-star"></span></li>
+                            <li><span class="ti-star"></span></li>
+                            <li><span class="ti-star"></span></li>
+                        </ul>
+                        <span class="rat__qun">(Based on 0 Ratings)</span>
+                    </div>
+
+                    <div class="pro__details">
+                        @foreach (var item in Model._listProductoCaracteristicaEL)
+                        {
+                            <p style="font-weight:bold;">@item.V_CARACTERISTICA:</p>
+                            <p>@item.V_VALOR</p>
+                        }
+                    </div>
+                    <ul class="pro__dtl__prize">
+                        <li class="old__prize">S/ @(Model.N_PRECIO + 6)</li>
+                        <li>S/ @Model.N_PRECIO</li>
+                    </ul>
+                    @*<div class="pro__dtl__color">
+                            <h2 class="title__5">Choose Colour</h2>
+                            <ul class="pro__choose__color">
+                                <li class="red"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                                <li class="blue"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                                <li class="perpal"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                                <li class="yellow"><a href="#"><i class="zmdi zmdi-circle"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pro__dtl__size">
+                            <h2 class="title__5">Size</h2>
+                            <ul class="pro__choose__size">
+                                <li><a href="#">xl</a></li>
+                                <li><a href="#">m</a></li>
+                                <li><a href="#">ml</a></li>
+                                <li><a href="#">lm</a></li>
+                                <li><a href="#">xxl</a></li>
+                            </ul>
+                        </div>*@
+                    <div class="product-action-wrap">
+                        <div class="prodict-statas"><span>Cantidad :</span></div>
+                        <div class="product-quantity">
+
+                            <div class="product-quantity">
+                                <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="@ViewBag.cantidad" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <ul class="pro__dtl__btn">
+                        <li class="buy__now__btn" style="background-color: #ff4136;"><a style="color:white;" name="btnComprarAhora">Agregar al carrito</a></li>
+                        <li><a href="#"><span class="ti-heart"></span></a></li>
+                        <li><a href="#"><span class="ti-email"></span></a></li>
+                    </ul>
+                    <div class="pro__social__share">
+                        <h2><a href="@Url.Action("index", new { name = ViewBag.name, token = ViewBag.token  })">Continuar comprando...</a></h2>
+                        @*
+                            <ul class="pro__soaial__link">
+                                <li><a href="https://twitter.com/devitemsllc" target="_blank"><i class="zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/devitems/" target="_blank"><i class="zmdi zmdi-instagram"></i></a></li>
+                                <li><a href="https://www.facebook.com/devitems/?ref=bookmarks" target="_blank"><i class="zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="https://plus.google.com/" target="_blank"><i class="zmdi zmdi-google-plus"></i></a></li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<input type="hidden" id="hdnIdToken" value="@ViewBag.idtoken" />
+@section Scripts {
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#header').addClass('header--3 bg__white');
+        $('.slider__container').remove();
+    });
+    $("a[name=btnComprarAhora]").on("click", function () {
+
+       if ($('[name=qtybutton]').val() > 0) {
+           @* window.location = "/Apptv/checkout?name=@Request.QueryString["name"]" + "&token=" + '@ViewBag.token';
+           return;
+           *@
+           var obj = { idEnc: $('#hdnIdToken').val(), token: '@Request.QueryString["token"]', idprodEnc: '@Request.QueryString["id"]', cant: $('[name=qtybutton]').val() };
+
+           $.ajax({
+               url: Web.Route.UrlApi.detalleCompra,
+               "type": 'POST',
+               "data": obj,
+               success: function (response) {
+                   console.log(response);
+                   if (!response.success) {
+                       window.location = "/Apptv/productodetalle?name=@Request.QueryString["name"]" + "&id=" + obj.idprodEnc + "&token=" + response.token;
+                } else {
+                    $('#hdnIdToken').val(response.data.idEnc);
+                    $('#cantshooping').text(response.data.cant);
+                    ReloadComments();
+
+                }
+            }
+           });
+
+       } else {
+           alerta('warning', 'Debe ingresar una cantidad.');
+       }
+    });
+
+
+    </script>
+}

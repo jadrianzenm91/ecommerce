@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "nosotros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <!-- content begin -->
+<div class="no-bottom no-top" id="content">
+    <div id="top"></div>
+
+    <!-- section begin -->
+    <section id="subheader" data-bgimage="url(/Content/theme3/images/background/5.png) bottom">
+        <div class="center-y relative text-center" data-scroll-speed="4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form action='blank.php' class="row" id='form_subscribe' method="post" name="myForm">
+                            <div class="col text-center">
+                                <div class="spacer-single"></div>
+                                <h1 style="color:Black;">Nosotros</h1>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section close -->
+
+
+    <section class="no-top" data-bgimage="url(/Content/theme3/images/background/6.png) center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-5 ">
+                    <img src="~/Content/img/1.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-6 offset-md-1">
+                    <h3>Qué nos diferencia?</h3>
+                    <p>Somos un excelente equipo de trabajo especialistas en desarrollo de Software y Hardware con el fin de brindar soluciones tecnológicas de alta gama.</p>
+                    <p>Asmismo, trabajamos en constante comunicación con el cliente para entregar un producto de acuerdo a sus necesidades bajo las medidas de calidad y garantía de respaldo.</p>
+                </div>
+            </div>
+
+            
+            <div class="spacer-double"></div>
+
+            <div class="padding40 round" data-bgcolor="#f5f5f5">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <h4 class="no-bottom">Nuestros Proveedores</h4>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="owl-logo" class="logo-carousel owl-carousel owl-theme">
+                            
+                            <img src="~/Content/img/providers/firebase.png" class="img-fluid" />
+                            <img src="~/Content/img/providers/azure.png" class="img-fluid" />
+                            <img src="~/Content/img/providers/logo-culqi.png" class="img-fluid" />
+                            <img src="~/Content/img/providers/googlemaps.png" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+ @section Scripts {
+<script>
+    
+    $(document).ready(function () {
+        $('header').addClass('header-light');
+    });
+</script>
+}

@@ -1,0 +1,48 @@
+﻿@model Domain.Entities.PlanTiendaEN
+@{
+    ViewBag.Title = "Suscripción";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Suscripción</h1>
+<p class="mb-4">Suscriba los conceptos de pagos a su cliente.</p>
+@Html.Partial("_MessageValidacion")
+<div class="card shadow mb-4">
+    <div class="card-body">
+       
+        @using (Html.BeginForm("registerPlanTienda", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+            <fieldset>
+                <legend></legend>
+                <input type="hidden" name="idtiendaEncryp" value="@ViewBag.idtiendaEncryp" />
+                <div class="row">
+                     <div class="col-lg-5">
+                        <div class="form-group">
+                            <label>Cliente/Tienda:</label>
+                            <input type="text" class="form-control text-uppercase" disabled value="@ViewBag.tienda" />
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label>Concepto de Cobro:</label>
+                            @Html.DropDownListFor(m => m.idplan, (IEnumerable<SelectListItem>)ViewBag.planes, new { @class = "form-control text-uppercase" })
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Tipo:</label>
+                            @Html.DropDownListFor(m => m.idtipo, (IEnumerable<SelectListItem>)ViewBag.tipo, new { @class = "form-control text-uppercase" })
+                        </div>
+                    </div>
+                   
+                </div>
+
+               <button type="submit" class="btn btn-primary ml-1"><span class="fas fa-save"></span> Guardar</button>
+
+            </fieldset>
+        }
+    </div>
+</div>

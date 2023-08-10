@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <form onsubmit="return sendMessage();">
+                    <input type="text" class="form-control" placeholder="Ingresar Mensaje" id="message" autocomplete="off"  />
+                    <input type="submit" value="Enviar" />
+                </form>
+                <ul id="messages"></ul>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBT6UqXIPw-Afu1vtYBUaS1hJDFcvm8X1M",
+    authDomain: "e-commerce-c6d82.firebaseapp.com",
+    databaseURL: "https://e-commerce-c6d82.firebaseio.com",
+    projectId: "e-commerce-c6d82",
+    storageBucket: "e-commerce-c6d82.appspot.com",
+    messagingSenderId: "5633135518",
+    appId: "1:5633135518:web:3478a74766bcf79b83bc8f"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var database = firebase.database();
+  
+ //OBTENER USUARIO
+  var userId = prompt("Ingresa su NSA:");
+  database.ref('users/' + userId).set({
+      'name': userId
+  });
+
+  //ENVIAR MENSAJE
+  function sendMessage() {
+      
+      var msg = document.getElementById('message').value;
+
+      database.ref('group/' + userId + '/messages').push().set({
+          'message': msg
+      });
+      return false;
+  }
+
+  //OBTENER LOS MENSAJES DEL USUARIO
+  var messages = {};
+  var referencia = database.ref("group/" + userId + "/messages");
+  referencia.on('value', function (datos) {
+      messages = datos.val();
+      var html = '';
+      $.each(messages, function (indice, valor) {
+          html += '<li>';
+          html += userId + ': ' + valor.message;
+          html += '</li>';
+      });
+      document.getElementById('messages').innerHTML = html;
+  });
+  
+
+</script>

@@ -1,0 +1,123 @@
+﻿@model Models.LoginModel
+@{
+    ViewBag.Title = "LoginUser";
+    Layout = "~/Views/Shared/_Apptv.cshtml";
+}
+<div>
+    <div class="htc__login__register bg__white ptb--50" style="background: rgba(0, 0, 0, 0) url(/Content/img/bg-white.png) no-repeat scroll center center / cover ;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <ul class="login__register__menu" role="tablist" style="margin: 0 auto 20px !important;">
+                        <li role="presentation" class="login active"><a class="active" href="#login" role="tab" data-toggle="tab">Login</a></li>
+                        <li role="presentation" class="register"><a href="@Url.Action("register", new { name = ViewBag.name, token = ViewBag.token })">Registro</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Start Login Register Content -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="htc__login__register__wrap">
+                        <!-- Start Single Content -->
+                        <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                            @if (!string.IsNullOrEmpty(ViewBag.ResetPasswordMessage))
+                            {
+                                <div class="alert alert-@ViewBag.ResetPasswordType alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                     @ViewBag.ResetPasswordMessage
+                                </div>
+                            }
+                            @using (Html.BeginForm("LoginUser", "Apptv", new { name = ViewBag.name, token = ViewBag.token }, FormMethod.Post, htmlAttributes: new { @class = "login" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                
+                                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Email" })
+                                @Html.ValidationMessageFor(model => model.UserName)
+                                
+                                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                                @Html.ValidationMessageFor(model => model.Password)
+
+                                
+                            
+                            <div class="tabs__checkbox">
+                                <input style="height:inherit;width:inherit;margin-top: inherit;" type="checkbox">
+                                <span> Remember me</span>
+                                <span class="forget"><a data-toggle="modal" data-target="#forgetPassword">Forget Pasword?</a></span>
+                            </div>
+                            <div class="htc__login__btn mt--30">
+                                <button type="submit" class="link" name="btnLoginUser" style="background:white;">Login</button>
+                            </div>
+                            }
+
+                            <div class="htc__social__connect">
+                                <h2>Or Login With</h2>
+                                <ul class="htc__soaial__list">
+                                    <li><a class="bg--googleplus firebase" data-social="google"><i class="zmdi zmdi-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single Content -->
+
+                      
+                    </div>
+                </div>
+            </div>
+            <!-- End Login Register Content -->
+        </div>
+
+        
+    </div>
+</div>
+
+<div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Recuperar Contraseña</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    @if (!string.IsNullOrEmpty(ViewBag.Message))
+                    {
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> @ViewBag.Message
+                        </div>
+                    }
+                    @using (Html.BeginForm("forgetPassword", "Apptv", new { name = ViewBag.name, token = ViewBag.token },
+                        FormMethod.Post, htmlAttributes: new { @class = "login" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="text" placeholder="Ingrese su Email" name="email">
+                    
+
+                    <div class="htc__login__btn mt--30">
+                        <button type="submit" class="link">Enviar</button>
+                    </div>
+                    }
+                </div>
+
+            </div>
+          
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts {
+   @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+    <script src="~/Scripts/View/Login/firebase-Init.js"></script>
+     <script src="~/Scripts/View/Login/Index.js"></script>
+    <script src="~/Scripts/View/Login/Controller.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#header').addClass('header--3 bg__white');
+            $('.slider__container').remove();
+            
+        });
+    </script>
+}

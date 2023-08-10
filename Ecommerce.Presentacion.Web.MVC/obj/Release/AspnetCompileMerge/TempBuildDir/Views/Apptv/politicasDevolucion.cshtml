@@ -1,0 +1,103 @@
+﻿@model Domain.Entities.TiendaEN
+@using Domain.EntitiesLogic;
+@using Manager.Application;
+@using Infrastructure.CrossCutting;
+
+<html class="no-js" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@Constantes.EMPRESA.title</title>
+    <meta name="description" content="@Constantes.EMPRESA.descriptor">
+    <meta name="author" content="@Constantes.EMPRESA.RAZON_SOCIAL">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" href="~/Content/img/icono-logo-220x240.png">
+    <link rel="apple-touch-icon" href="~/Content/img/icono-logo-220x240.png">
+
+</head>
+    <body>
+        <div style="box-sizing:border-box;width:100%;height:100%;margin:0;padding:0;background:white!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+         <tr>
+            <td align="left" valign="top">
+               <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:37.5rem;" bgcolor="#fff">
+                  <tbody>
+                     <tr>
+                        <td style="font-size:14px;line-height:20px;box-sizing:border-box;border-collapse:collapse;width:100%;text-align:center!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" align="center">
+                           <div style="box-sizing:border-box;width:12rem;margin-bottom:1.563rem;margin-top:1.563rem;margin-right:auto;margin-left:auto!important"> <a href="https://www.amazon.com.br/kindle-dbs/entity/author/B07BV2GPWD?ref_=dbs_p_ebk_r00_abau_000000" style="box-sizing:border-box!important" target="_blank"> <img alt="@Model.V_RAZON_SOCIAL" border="0" width="auto" src="@Model.V_LOGO" style="border-radius:5px;vertical-align:top;outline:none;text-decoration:none;max-width:100%;border:none;max-height:67px!important"></a><br><b><i>@Model.V_RAZON_SOCIAL</i></b></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <table style="padding: 1px 10px 1px 10px;font-size: 12px;text-align: justify;" width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+                              <tbody>
+                                 <tr>
+                                    <td style="background-color:white;">
+                                     <h4> Políticas de cambios y Devoluciones</h4>
+                                        <p>Nuestro objetivo es asegurar tu completa satisfacción, por lo que te pedimos que revises el producto al 
+                                        momento de recibirlo y en caso de no estar conforme con él no lo recibas y coloques las observaciones 
+                                        en la “Lista de Verificación” que te entregará nuestro transportista. @Model.V_RAZON_SOCIAL realizará 
+                                        un nuevo envío lo más pronto posible ( sujeto a disponibilidad de stock ).
+                                           Sin embargo, si por alguna razón, luego de recibir el pedido no estás satisfecho con el producto, 
+                                        tienes un plazo de @Model._ConfiguracionTiendaEN.diasplazodevolucion días calendario desde que lo recibiste para 
+                                        devolverlo a @Model.V_RAZON_SOCIAL teniendo en cuenta lo siguiente:</p>
+
+<p>• El producto debe encontrarse en perfecto estado, sin uso y con todos los empaques y accesorios originales completos.</p>
+
+<p>• Deberás comunicarte con nuestro Callcenter al teléfono @Model.V_TELEFONO de @Model._ConfiguracionTiendaEN.rangoatencion para solicitar 
+                                        la devolución del producto. Para ingresar tu solicitud debes tener a la mano lo siguiente:<br />
+
+Nro del Comprobante de Pago ( boleta o factura electrónica ).<br />
+Nro de DNI, carnet de extranjería o pasaporte.<br />
+</p>
+<p>• Dependiendo la naturaleza del producto, podrá pasar por servicio técnico. El plazo máximo de atención es de @Model._ConfiguracionTiendaEN.diasplazoatencion días calendario, 
+                                        en donde se determinará si se procede con el cambio, reparación del producto o devolución de la compra.</p>
+
+<p>• Para los casos de devolución, esta se realizará según el medio de pago que utilizaste para la compra, luego que se haya tenido la respuesta del 
+                                        servicio técnico o se haya recibido el producto en nuestro centro de distribución.</p>
+
+<p>• Según el medio de pago el proceso es el siguiente.<br />
+
+Pago con tarjeta de crédito o débito: la solicitud de reembolso se generará de manera inmediata, sin embargo el tiempo de devolución efectiva en tu tarjeta dependerá de tu entidad bancaria.<br />
+
+Pago con Pago Efectivo: la devolución se realizará: con un depósito a una cuenta bancaria. Te enviaremos un correo solicitando los datos necesarios.<br /></p>
+
+<p>• La política de cambio de productos no procede respecto de los siguientes productos:<br />
+
+Productos ya instalados o armados.<br />
+
+Productos sujetos a promociones (descuento por volumen, ítem gratis, etc.)<br /></p>
+<p>• En caso el cliente haya cancelado a través de una tarjeta de crédito y solicite la devolución a través de una Nota de Crédito para comprar en tiendas 
+                                        físicas, acepta y declara estar en conocimiento de que la venta original mantiene las condiciones de crédito pactadas previamente 
+                                        toda vez que no se ha efectuado el extorno correspondiente, debiendo cancelar los intereses bancarios generados por la compra original.</p>
+
+<p>• La devolución de los productos que no son despachados por @Model.V_RAZON_SOCIAL deberá ser solicitada a través de nuestro 
+                                        Callcenter al teléfono @Model.V_TELEFONO de @Model._ConfiguracionTiendaEN.rangoatencion 
+                                        Al momento de hacer la compra puedes leer los términos y condiciones de estos productos.</p>
+                                                 
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                     </tr>
+                     
+                    
+                     <tr style="box-sizing:border-box!important">
+                        <td style="height:1rem"></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+            </div>
+    </body>
+        
+  
+    
+</html>
